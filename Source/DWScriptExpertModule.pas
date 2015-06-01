@@ -74,6 +74,10 @@ type
     procedure dwsTSyntaxNodeMethodsGetAttributeKeyEval(Info: TProgramInfo;
       ExtObject: TObject);
     procedure dwsUnitInternalFunctionsWriteLnEval(info: TProgramInfo);
+    procedure dwsUnitDelphiASTClassesTCompoundSyntaxNodeMethodsGetEndColEval(
+      Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitDelphiASTClassesTCompoundSyntaxNodeMethodsGetEndLineEval(
+      Info: TProgramInfo; ExtObject: TObject);
   private
     FUnitRTTI: TdwsUnit;
     {$IFDEF UseCryptoModule}
@@ -231,6 +235,20 @@ begin
     // ToDo: store ParentNode
 *)
   end;
+end;
+
+procedure TDataModuleScript.dwsUnitDelphiASTClassesTCompoundSyntaxNodeMethodsGetEndColEval(
+  Info: TProgramInfo; ExtObject: TObject);
+begin
+  Assert(ExtObject is TCompoundSyntaxNode);
+  Info.ResultAsInteger := TCompoundSyntaxNode(ExtObject).Col;
+end;
+
+procedure TDataModuleScript.dwsUnitDelphiASTClassesTCompoundSyntaxNodeMethodsGetEndLineEval(
+  Info: TProgramInfo; ExtObject: TObject);
+begin
+  Assert(ExtObject is TCompoundSyntaxNode);
+  Info.ResultAsInteger := TCompoundSyntaxNode(ExtObject).Col;
 end;
 
 procedure TDataModuleScript.dwsUnitDelphiASTClassesTSyntaxNodeMethodsGetColEval(

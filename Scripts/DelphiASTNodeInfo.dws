@@ -22,4 +22,7 @@ begin
     VisualizeNode(Node.ChildNode[Index], Level + 1);
 end;
 
-VisualizeNode(GetAbstractSyntaxTree, 0);
+var RootNode := GetAbstractSyntaxTree;
+
+if Assigned(RootNode) then
+  VisualizeNode(GetAbstractSyntaxTree, 0);

@@ -202,6 +202,35 @@ object DataModuleScript: TDataModuleScript
             DataType = 'TSyntaxNode'
             ReadAccess = 'GetParentNode'
           end>
+      end
+      item
+        Name = 'TCompoundSyntaxNode'
+        Methods = <
+          item
+            Name = 'GetEndCol'
+            ResultType = 'Integer'
+            OnEval = dwsUnitDelphiASTClassesTCompoundSyntaxNodeMethodsGetEndColEval
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetEndLine'
+            ResultType = 'Integer'
+            OnEval = dwsUnitDelphiASTClassesTCompoundSyntaxNodeMethodsGetEndLineEval
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end>
+        Properties = <
+          item
+            Name = 'EndCol'
+            DataType = 'Integer'
+            ReadAccess = 'GetEndCol'
+          end
+          item
+            Name = 'EndLine'
+            DataType = 'Integer'
+            ReadAccess = 'GetEndLine'
+          end>
       end>
     Enumerations = <
       item

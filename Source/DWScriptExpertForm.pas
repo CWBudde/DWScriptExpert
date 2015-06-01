@@ -151,7 +151,6 @@ type
     procedure ActionFileSaveAsAccept(Sender: TObject);
     procedure ActionFileOpenAccept(Sender: TObject);
   private
-    FRecentScriptName: TFileName;
     FBackgroundCompilationThread: TBackgroundCompilationThread;
     FExecutionThread: TExecutionThread;
     FCompiledProgram: IdwsProgram;
@@ -349,7 +348,7 @@ begin
     FProgramExecution := FCompiledProgram.CreateNewExecution;
     FProgramExecution.Execute(5 * 60 * 1000); // 5 minutes!
 
-    Success := True;
+    Success := not FProgramExecution.Msgs.HasErrors;
   except
     Success := False
   end;
@@ -358,15 +357,32 @@ begin
     Exit;
 
   Synchronize(procedure
+  var
+    Index: Integer;
+    Node: PVirtualNode;
+    NodeData: PCompilerMessage;
   begin
     if Success then
     begin
       if FProgramExecution.Result.ToString <> '' then
-        GDockForm.MemoOutput.Lines.Add(FProgramExecution.Result.ToUTF8String);
+        GDockForm.MemoOutput.Lines.Add(FProgramExecution.Result.ToString);
       GDockForm.StatusBar.Panels[1].Text := 'Executed';
     end
     else
+    begin
+      if FProgramExecution.Msgs.HasErrors then
+      begin
+        for Index := 0 to FProgramExecution.Msgs.Count - 1 do
+        begin
+          Node := GDockForm.TreeCompiler.AddChild(GDockForm.TreeCompiler.RootNode);
+          NodeData := GDockForm.TreeCompiler.GetNodeData(Node);
+          NodeData.Text := FProgramExecution.Msgs[Index].AsInfo;
+          NodeData.Message := FProgramExecution.Msgs[Index];
+        end;
+        GDockForm.PageControl.ActivePage := GDockForm.TabSheetCompiler;
+      end;
       GDockForm.StatusBar.Panels[1].Text := 'Error';
+    end;
 
     if Assigned(FOnExecutionDone) then
       FOnExecutionDone(Self);
@@ -603,7 +619,7 @@ begin
       NodeData := TreeCompiler.GetNodeData(Node);
       NodeData.Text := FCompiledProgram.Msgs[Index].AsInfo;
       NodeData.Message := FCompiledProgram.Msgs[Index];
-     end;
+    end;
   finally
     TreeCompiler.EndUpdate;
   end;
