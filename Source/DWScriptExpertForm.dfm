@@ -70,7 +70,7 @@ object DWScriptExpertDockForm: TDWScriptExpertDockForm
     Top = 356
     Width = 695
     Height = 99
-    ActivePage = TabSheetCompiler
+    ActivePage = TabSheetOutput
     Align = alBottom
     TabOrder = 2
     object TabSheetCompiler: TTabSheet
@@ -108,9 +108,15 @@ object DWScriptExpertDockForm: TDWScriptExpertDockForm
         Width = 687
         Height = 71
         Align = alClient
-        MaxLength = 80
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Courier New'
+        Font.Style = []
+        ParentFont = False
         PopupMenu = PopupMenuMessages
         ReadOnly = True
+        ScrollBars = ssBoth
         TabOrder = 0
       end
     end
@@ -239,6 +245,8 @@ object DWScriptExpertDockForm: TDWScriptExpertDockForm
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = [fsBold]
     Columns = <>
+    Images = Images
+    OnExecute = SynParametersExecute
     ShortCut = 24608
     Editor = SynEdit
     Left = 72
@@ -259,6 +267,11 @@ object DWScriptExpertDockForm: TDWScriptExpertDockForm
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = [fsBold]
     Columns = <>
+    Images = Images
+    OnClose = SynCodeSuggestionsClose
+    OnExecute = SynCodeSuggestionsExecute
+    OnPaintItem = SynCodeSuggestionsPaintItem
+    OnShow = SynCodeSuggestionsShow
     ShortCut = 16416
     Editor = SynEdit
     Left = 72
@@ -313,6 +326,7 @@ object DWScriptExpertDockForm: TDWScriptExpertDockForm
       Hint = 'Open|Opens an existing file'
       ImageIndex = 0
       ShortCut = 16463
+      OnAccept = ActionFileOpenAccept
     end
     object ActionFileSaveAs: TFileSaveAs
       Category = 'File'
@@ -321,6 +335,7 @@ object DWScriptExpertDockForm: TDWScriptExpertDockForm
       Dialog.Filter = 'DWScript (*.dws)|*.dws'
       Hint = 'Save As|Saves the active file with a new name'
       ImageIndex = 1
+      OnAccept = ActionFileSaveAsAccept
     end
     object ActionScriptRun: TAction
       Category = 'Script'

@@ -1,0 +1,25 @@
+procedure VisualizeNode(Node: TSyntaxNode; Level: Integer);
+var
+  NodeInfo: String;
+begin
+  // build node information
+  NodeInfo := '(' + IntToStr(Node.Line) + ', ' + IntToStr(Node.Col) + ')'; 
+  if Node.HasAttribute('value') then
+    NodeInfo := Node.GetAttribute('value') + ' ' + NodeInfo;
+  if Node.HasAttribute('type') then
+    NodeInfo := Node.GetAttribute('type') + ' ' + NodeInfo;
+  if Node.HasAttribute('name') then
+    NodeInfo := Node.GetAttribute('name') + ' ' + NodeInfo;
+  NodeInfo := SyntaxNodeTypeToName(Node.&Type) + ': ' + NodeInfo;   
+
+  // indention
+  NodeInfo := DupeString(' ', 2 * Level) + NodeInfo; 
+
+  // show node info
+  PrintLn(NodeInfo);
+
+  for var Index := 0 to Node.ChildNodeCount - 1 do
+    VisualizeNode(Node.ChildNode[Index], Level + 1);
+end;
+
+VisualizeNode(GetAbstractSyntaxTree, 0);

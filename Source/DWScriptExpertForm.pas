@@ -148,6 +148,8 @@ type
     procedure TreeCompilerGetText(Sender: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType; var CellText: string);
     procedure ActionScriptAbortExecute(Sender: TObject);
     procedure ActionScriptAbortUpdate(Sender: TObject);
+    procedure ActionFileSaveAsAccept(Sender: TObject);
+    procedure ActionFileOpenAccept(Sender: TObject);
   private
     FRecentScriptName: TFileName;
     FBackgroundCompilationThread: TBackgroundCompilationThread;
@@ -198,7 +200,7 @@ implementation
 {$R *.dfm}
 
 uses
-  Deskutil, ToolsAPI, dwsUtils, dwsXPlatform, DWScriptExpertAbout;
+  Deskutil, ToolsAPI, Registry, dwsUtils, dwsXPlatform, DWScriptExpertAbout;
 
 var
   GDockForm: TDWScriptExpertDockForm;
@@ -360,7 +362,7 @@ begin
     if Success then
     begin
       if FProgramExecution.Result.ToString <> '' then
-        GDockForm.MemoOutput.Lines.Add(FProgramExecution.Result.ToString);
+        GDockForm.MemoOutput.Lines.Add(FProgramExecution.Result.ToUTF8String);
       GDockForm.StatusBar.Panels[1].Text := 'Executed';
     end
     else
@@ -405,10 +407,10 @@ begin
   FSearchHighlighter := TEditorFrameSynEditPlugin.Create(SynEdit);
 
   DeskSection := Name;
-  AutoSave := true;
+  AutoSave := True;
 
   // Instruct TDockableForm to save state
-  SaveStateNecessary := true;
+  SaveStateNecessary := True;
 end;
 
 destructor TDWScriptExpertDockForm.Destroy;
@@ -442,9 +444,30 @@ end;
 
 procedure TDWScriptExpertDockForm.FormShow(Sender: TObject);
 begin
-  FRecentScriptName := 'C:\Recent.pas';
-  if FileExists(FRecentScriptName) then
-    SynEdit.Lines.LoadFromFile(FRecentScriptName);
+  with TRegistry.Create do
+  try
+    if OpenKey('Software\DWScriptExpert\', False) then
+    begin
+      // recall form position
+      if ValueExists('Left') then
+        Left := ReadInteger('Left');
+      if ValueExists('Top') then
+        Top := ReadInteger('Top');
+
+      // recall caret position
+      SynEdit.CaretX := ReadInteger('CaretX');
+      SynEdit.CaretY := ReadInteger('CaretY');
+
+      if ValueExists('CurrentFile') then
+        CurrentFileName := ReadString('CurrentFile');
+
+      if ValueExists('RecentScript') then
+        SynEdit.Lines.Text := ReadString('RecentScript');
+    end;
+    CloseKey;
+  finally
+    Free;
+  end;
 
   // schedule first compilation
   FBackgroundCompilationThread.ScheduleCompilation;
@@ -453,8 +476,56 @@ end;
 procedure TDWScriptExpertDockForm.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
-  SynEdit.Lines.SaveToFile(FRecentScriptName);
+  with TRegistry.Create do
+  try
+    OpenKey('Software\DWScriptExpert\', True);
 
+    // store form position
+    WriteInteger('Left', Left);
+    WriteInteger('Top', Top);
+
+    // store caret position
+    WriteInteger('CaretX', SynEdit.CaretX);
+    WriteInteger('CaretY', SynEdit.CaretY);
+
+    // store options
+    WriteBool('AltSetsColumnMode', eoAltSetsColumnMode in SynEdit.Options);
+    WriteBool('AutoIndent', eoAutoIndent in SynEdit.Options);
+    WriteBool('AutoSizeMaxScrollWidth', eoAutoSizeMaxScrollWidth in SynEdit.Options);
+    WriteBool('DisableScrollArrows', eoDisableScrollArrows in SynEdit.Options);
+    WriteBool('DragDropEditing', eoDragDropEditing in SynEdit.Options);
+    WriteBool('DropFiles', eoDropFiles in SynEdit.Options);
+    WriteBool('EnhanceHomeKey', eoEnhanceHomeKey in SynEdit.Options);
+    WriteBool('EnhanceEndKey', eoEnhanceEndKey in SynEdit.Options);
+    WriteBool('GroupUndo', eoGroupUndo in SynEdit.Options);
+    WriteBool('HalfPageScroll', eoHalfPageScroll in SynEdit.Options);
+    WriteBool('HideShowScrollbars', eoHideShowScrollbars in SynEdit.Options);
+    WriteBool('KeepCaretX', eoKeepCaretX in SynEdit.Options);
+    WriteBool('NoCaret', eoNoCaret in SynEdit.Options);
+    WriteBool('NoSelection', eoNoSelection in SynEdit.Options);
+    WriteBool('RightMouseMovesCursor', eoRightMouseMovesCursor in SynEdit.Options);
+    WriteBool('ScrollByOneLess', eoScrollByOneLess in SynEdit.Options);
+    WriteBool('ScrollHintFollows', eoScrollHintFollows in SynEdit.Options);
+    WriteBool('ScrollPastEof', eoScrollPastEof in SynEdit.Options);
+    WriteBool('ScrollPastEol', eoScrollPastEol in SynEdit.Options);
+    WriteBool('ShowScrollHint', eoShowScrollHint in SynEdit.Options);
+    WriteBool('ShowSpecialChars', eoShowSpecialChars in SynEdit.Options);
+    WriteBool('SmartTabDelete', eoSmartTabDelete in SynEdit.Options);
+    WriteBool('SmartTabs', eoSmartTabs in SynEdit.Options);
+    WriteBool('SpecialLineDefaultFg', eoSpecialLineDefaultFg in SynEdit.Options);
+    WriteBool('TabIndent', eoTabIndent in SynEdit.Options);
+    WriteBool('TabsToSpaces', eoTabsToSpaces in SynEdit.Options);
+    WriteBool('TrimTrailingSpaces', eoTrimTrailingSpaces in SynEdit.Options);
+    WriteString('CurrentFile', FCurrentFileName);
+
+    WriteString('RecentScript', SynEdit.Lines.Text);
+
+    CloseKey;
+  finally
+    Free;
+  end;
+
+  GViewScriptMenuItem.Checked := False;
   Action := caHide;
 end;
 
@@ -471,6 +542,16 @@ end;
 procedure TDWScriptExpertDockForm.ActionDocumentationExecute(Sender: TObject);
 begin
   //
+end;
+
+procedure TDWScriptExpertDockForm.ActionFileOpenAccept(Sender: TObject);
+begin
+  LoadScript(ActionFileOpen.Dialog.FileName);
+end;
+
+procedure TDWScriptExpertDockForm.ActionFileSaveAsAccept(Sender: TObject);
+begin
+  SaveScript(ActionFileSaveAs.Dialog.FileName);
 end;
 
 procedure TDWScriptExpertDockForm.ActionFileSaveExecute(Sender: TObject);
@@ -945,7 +1026,7 @@ begin
       scReservedWord:
         SynCodeSuggestions.Images.Draw(TargetCanvas, ItemRect.Left, ItemRect.Top, 25);
       scSpecialFunction:
-        SynCodeSuggestions.Images.Draw(TargetCanvas, ItemRect.Left, ItemRect.Top, 26);
+        SynCodeSuggestions.Images.Draw(TargetCanvas, ItemRect.Left, ItemRect.Top, 25);
     end;
 
     Offset.x := ItemRect.Left + 18;
@@ -1148,7 +1229,7 @@ procedure AddIDEMenu;
 var
   NTAServices: INTAServices40;
 const
-  CItemName = 'Scriptable Editor Expert';
+  CItemName = 'DWScript Expert';
 begin
   NTAServices := BorlandIDEServices as INTAServices40;
 
@@ -1190,22 +1271,43 @@ begin
     GCustomMenuHandler.Free;
 end;
 
-procedure Register;
+procedure CreateDockForm;
 begin
-  AddIDEMenu;
-
   // Create the form
   if GDockForm = nil then
   begin
     GDockForm := TDWScriptExpertDockForm.Create(nil);
-    GDockForm.Visible := true;
+    GDockForm.Visible := True;
+    GViewScriptMenuItem.Checked := True;
 
     // Register to save position with the IDE
-    RegisterDesktopFormClass(TDWScriptExpertDockForm, 'ScriptableEditorForm',
+    RegisterDesktopFormClass(TDWScriptExpertDockForm, 'DWScriptExpertDockForm',
       GDockForm.Name);
     if (@RegisterFieldAddress <> nil) then
       RegisterFieldAddress(GDockForm.Name, @GDockForm);
   end;
+end;
+
+procedure DestroyDockForm;
+begin
+  if Assigned(GDockForm) then
+  begin
+    // Cleanup dockable form instance
+    if @UnregisterFieldAddress <> nil then
+      UnregisterFieldAddress(@GDockForm);
+    GDockForm.Free;
+  end;
+end;
+
+procedure Register;
+begin
+  AddIDEMenu;
+
+  // eventually destroy currently existing dock form
+  DestroyDockForm;
+
+  // create new dock form
+  CreateDockForm;
 end;
 
 initialization
@@ -1215,12 +1317,6 @@ initialization
 
 finalization
   RemoveIDEMenu;
-  if Assigned(GDockForm) then
-  begin
-    // Cleanup dockable form instance
-    if @UnregisterFieldAddress <> nil then
-      UnregisterFieldAddress(@GDockForm);
-    GDockForm.Free;
-  end;
+  DestroyDockForm;
 
 end.

@@ -12,12 +12,12 @@ package DWScriptExpert;
 {$LOCALSYMBOLS ON}
 {$LONGSTRINGS ON}
 {$OPENSTRINGS ON}
-{$OPTIMIZATION ON}
+{$OPTIMIZATION OFF}
 {$OVERFLOWCHECKS OFF}
 {$RANGECHECKS OFF}
 {$REFERENCEINFO ON}
 {$SAFEDIVIDE OFF}
-{$STACKFRAMES OFF}
+{$STACKFRAMES ON}
 {$TYPEDADDRESS OFF}
 {$VARSTRINGCHECKS ON}
 {$WRITEABLECONST OFF}
@@ -25,7 +25,7 @@ package DWScriptExpert;
 {$IMAGEBASE $400000}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
-{$DESCRIPTION 'Scriptable Editor Expert (Powered by DWS)'}
+{$DESCRIPTION 'DWScript Expert'}
 {$IMPLICITBUILD ON}
 
 requires
@@ -41,8 +41,8 @@ requires
   vclimg;
 
 contains
-  DWScriptExpertForm in 'DWScriptExpertForm.pas' {DWScriptExpertDockForm},
-  DWScriptExpertModule in 'DWScriptExpertModule.pas' {DataModuleScript: TDataModule},
-  DWScriptExpertAbout in 'DWScriptExpertAbout.pas' {FormAbout};
+  DWScriptExpertForm in '..\Source\DWScriptExpertForm.pas' {DWScriptExpertDockForm},
+  DWScriptExpertModule in '..\Source\DWScriptExpertModule.pas' {DataModuleScript: TDataModule},
+  DWScriptExpertAbout in '..\Source\DWScriptExpertAbout.pas' {FormAbout};
 
 end.
