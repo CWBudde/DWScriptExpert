@@ -381,6 +381,7 @@ begin
       repeat
         ByteReaded := EditReader.GetText(Position, Buffer, CChunkSize);
         Stream.Write(Buffer^, ByteReaded);
+        Position := Position + ByteReaded;
       until ByteReaded < CChunkSize;
     finally
       Dispose(Buffer);

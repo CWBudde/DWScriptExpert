@@ -3,7 +3,7 @@ object FormAbout: TFormAbout
   Top = 0
   BorderStyle = bsDialog
   Caption = 'About'
-  ClientHeight = 191
+  ClientHeight = 193
   ClientWidth = 214
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -15,7 +15,7 @@ object FormAbout: TFormAbout
   Position = poScreenCenter
   DesignSize = (
     214
-    191)
+    193)
   PixelsPerInch = 96
   TextHeight = 13
   object Image: TImage
@@ -421,33 +421,33 @@ object FormAbout: TFormAbout
   object LabelTitle: TLabel
     Left = 8
     Top = 78
-    Width = 198
-    Height = 23
-    Caption = 'Scriptable Editor Expert'
+    Width = 154
+    Height = 25
+    Caption = 'DWScript Expert'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -19
+    Font.Height = -21
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
   end
   object LabelCopyright: TLabel
     Left = 8
-    Top = 104
+    Top = 106
     Width = 170
     Height = 13
     Caption = 'Copyright 2015 Christian-W. Budde'
   end
   object LabelUses: TLabel
     Left = 8
-    Top = 136
+    Top = 138
     Width = 201
     Height = 13
     Caption = '(uses DWScript, SynEdit, VirtualTreeView)'
   end
   object ButtonOK: TButton
     Left = 64
-    Top = 158
+    Top = 160
     Width = 75
     Height = 25
     Anchors = [akLeft, akBottom]
