@@ -162,6 +162,8 @@ type
     FSearchHighlighter: TEditorFrameSynEditPlugin;
     FSuggestions: IDWSSuggestions;
     FScriptModule: TDataModuleScript;
+    procedure LoadSettings;
+    procedure SaveSettings;
 
     {$IFDEF WebUpdate}
     FWebUpdate: TWebUpdate;
@@ -425,12 +427,16 @@ begin
   DeskSection := Name;
   AutoSave := True;
 
+  LoadSettings;
+
   // Instruct TDockableForm to save state
   SaveStateNecessary := True;
 end;
 
 destructor TDWScriptExpertDockForm.Destroy;
 begin
+  SaveSettings;
+
 {$IFDEF WebUpdate}
   FWebUpdate.Free;
 {$ENDIF}
@@ -460,6 +466,19 @@ end;
 
 procedure TDWScriptExpertDockForm.FormShow(Sender: TObject);
 begin
+  // schedule first compilation
+  FBackgroundCompilationThread.ScheduleCompilation;
+end;
+
+procedure TDWScriptExpertDockForm.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  GViewScriptMenuItem.Checked := False;
+  Action := caHide;
+end;
+
+procedure TDWScriptExpertDockForm.LoadSettings;
+begin
   with TRegistry.Create do
   try
     if OpenKey('Software\DWScriptExpert\', False) then
@@ -484,13 +503,9 @@ begin
   finally
     Free;
   end;
-
-  // schedule first compilation
-  FBackgroundCompilationThread.ScheduleCompilation;
 end;
 
-procedure TDWScriptExpertDockForm.FormClose(Sender: TObject;
-  var Action: TCloseAction);
+procedure TDWScriptExpertDockForm.SaveSettings;
 begin
   with TRegistry.Create do
   try
@@ -540,9 +555,6 @@ begin
   finally
     Free;
   end;
-
-  GViewScriptMenuItem.Checked := False;
-  Action := caHide;
 end;
 
 procedure TDWScriptExpertDockForm.ActionAboutExecute(Sender: TObject);

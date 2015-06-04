@@ -9,7 +9,7 @@ interface
 {-$DEFINE UseSymbolsLib}
 
 uses
-  Windows, SysUtils, Classes, ToolsAPI, TypInfo,
+  Windows, SysUtils, Classes, Controls, ToolsAPI, TypInfo, Dialogs, Forms,
 
   dwsComp, dwsExprs, dwsSymbols, dwsErrors, dwsSuggestions, dwsVCLGUIFunctions,
   dwsStrings, dwsUnitSymbols, dwsFunctions, dwsTokenizer, dwsDebugger,
@@ -41,43 +41,41 @@ type
     dwsComConnector: TdwsComConnector;
     dwsUnitDelphiAST: TdwsUnit;
     dwsUnitInternal: TdwsUnit;
+    dwsUnitEditor: TdwsUnit;
+    dwsUnitHelp: TdwsUnit;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
-    procedure dwsUnitDelphiASTFunctionsExportSyntaxTreeToXMLEval(
-      info: TProgramInfo);
-    procedure dwsTSyntaxNodeMethodsGetAttributeEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsTSyntaxNodeMethodsHasAttributeEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsUnitDelphiASTClassesTSyntaxNodeMethodsGetTypeEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsUnitDelphiASTClassesTSyntaxNodeMethodsGetColEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsUnitDelphiASTClassesTSyntaxNodeMethodsGetLineEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsUnitDelphiASTFunctionsGetAbstractSyntaxTreeEval(
-      info: TProgramInfo);
-    procedure dwsUnitDelphiASTFunctionsSyntaxNodeTypeToStringEval(
-      info: TProgramInfo);
-    procedure dwsUnitDelphiASTFunctionsSyntaxNodeTypeToNameEval(
-      info: TProgramInfo);
-    procedure dwsUnitDelphiASTClassesTSyntaxNodeMethodsGetHasChildrenEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsUnitDelphiASTClassesTSyntaxNodeMethodsGetHasAttributesEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsTSyntaxNodeMethodsGetAttributeCountEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsTSyntaxNodeMethodsGetChildCountEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsTSyntaxNodeMethodsGetChildNodeEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsTSyntaxNodeMethodsGetAttributeKeyEval(Info: TProgramInfo;
-      ExtObject: TObject);
+    procedure dwsTSyntaxNodeMethodsGetAttributeCountEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsTSyntaxNodeMethodsGetAttributeEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsTSyntaxNodeMethodsGetAttributeKeyEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsTSyntaxNodeMethodsGetChildCountEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsTSyntaxNodeMethodsGetChildNodeEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsTSyntaxNodeMethodsHasAttributeEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitDelphiASTClassesTCompoundSyntaxNodeMethodsGetEndColEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitDelphiASTClassesTCompoundSyntaxNodeMethodsGetEndLineEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitDelphiASTClassesTSyntaxNodeMethodsGetColEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitDelphiASTClassesTSyntaxNodeMethodsGetHasAttributesEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitDelphiASTClassesTSyntaxNodeMethodsGetHasChildrenEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitDelphiASTClassesTSyntaxNodeMethodsGetLineEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitDelphiASTClassesTSyntaxNodeMethodsGetTypeEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitDelphiASTFunctionsExportSyntaxTreeToXMLEval(info: TProgramInfo);
+    procedure dwsUnitDelphiASTFunctionsGetAbstractSyntaxTreeEval(info: TProgramInfo);
+    procedure dwsUnitDelphiASTFunctionsSyntaxNodeTypeToNameEval(info: TProgramInfo);
+    procedure dwsUnitDelphiASTFunctionsSyntaxNodeTypeToStringEval(info: TProgramInfo);
+    procedure dwsUnitHelpFunctionsGetIOTAHelpServicesEval(info: TProgramInfo);
     procedure dwsUnitInternalFunctionsWriteLnEval(info: TProgramInfo);
-    procedure dwsUnitDelphiASTClassesTCompoundSyntaxNodeMethodsGetEndColEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsUnitDelphiASTClassesTCompoundSyntaxNodeMethodsGetEndLineEval(
-      Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitSimpleEditorFunctionsLocateTextEval(info: TProgramInfo);
+    procedure dwsUnitSimpleEditorFunctionsSetCursorPositionEval(info: TProgramInfo);
+    procedure dwsUnitEditorFunctionsCenterCursorEval(info: TProgramInfo);
+    procedure dwsUnitEditorFunctionsPageDownEval(info: TProgramInfo);
+    procedure dwsUnitEditorFunctionsPageUpEval(info: TProgramInfo);
+    procedure dwsUnitEditorFunctionsGotoBookmarkEval(info: TProgramInfo);
+    procedure dwsUnitEditorFunctionsReplaceAllEval(info: TProgramInfo);
+    procedure dwsUnitEditorFunctionsMoveCursorEval(info: TProgramInfo);
+    procedure dwsUnitEditorFunctionsSelectCurrentWordEval(info: TProgramInfo);
+    procedure dwsUnitEditorFunctionsMoveOneWordLeftEval(info: TProgramInfo);
+    procedure dwsUnitEditorFunctionsMoveOneWordRightEval(info: TProgramInfo);
+    procedure dwsUnitEditorFunctionsInsertTextEval(info: TProgramInfo);
   private
     FUnitRTTI: TdwsUnit;
     {$IFDEF UseCryptoModule}
@@ -95,6 +93,9 @@ type
     {$ENDIF}
     procedure DoGetSelfInstance(Info: TProgramInfo);
     function GetSyntaxNode(InterfaceOnly: Boolean = False): TSyntaxNode;
+    function GetEditBuffer: IOTAEditBuffer;
+    function GetEditView: IOTAEditView;
+    procedure SetEditorFocus(EditView: IOTAEditView);
   public
   end;
 
@@ -336,6 +337,251 @@ begin
   Info.ResultAsString := GetEnumName(TypeInfo(TSyntaxNodeType), Info.ParamAsInteger[0]);
 end;
 
+procedure TDataModuleScript.dwsUnitEditorFunctionsCenterCursorEval(
+  info: TProgramInfo);
+var
+  EditView: IOTAEditView;
+begin
+  // get edit view and check for availability
+  EditView := GetEditView;
+  if not Assigned(EditView) then
+    Exit;
+
+  // center cursor
+  EditView.Center(Info.ParamAsInteger[0], Info.ParamAsInteger[1]);
+end;
+
+procedure TDataModuleScript.dwsUnitEditorFunctionsGotoBookmarkEval(
+  info: TProgramInfo);
+var
+  EditView: IOTAEditView;
+begin
+  // get edit view and check for availability
+  EditView := GetEditView;
+  if not Assigned(EditView) then
+    Exit;
+
+  // goto bookmark
+  EditView.BookmarkGoto(Info.ParamAsInteger[0]);
+end;
+
+procedure TDataModuleScript.dwsUnitEditorFunctionsInsertTextEval(
+  info: TProgramInfo);
+var
+  EditView: IOTAEditView;
+begin
+  // get edit view and check for availability
+  EditView := GetEditView;
+  if not Assigned(EditView) then
+    Exit;
+
+  // goto bookmark
+  EditView.Position.InsertText(Info.ParamAsString[0]);
+  SetEditorFocus(EditView);
+end;
+
+procedure TDataModuleScript.dwsUnitEditorFunctionsMoveCursorEval(
+  info: TProgramInfo);
+var
+  EditView: IOTAEditView;
+begin
+  // get edit view and check for availability
+  EditView := GetEditView;
+  if not Assigned(EditView) then
+    Exit;
+
+  // goto bookmark
+  EditView.Position.MoveCursor(Info.ParamAsInteger[0]);
+  SetEditorFocus(EditView);
+end;
+
+procedure TDataModuleScript.dwsUnitEditorFunctionsMoveOneWordLeftEval(
+  info: TProgramInfo);
+var
+  EditView: IOTAEditView;
+begin
+  // get edit view and check for availability
+  EditView := GetEditView;
+  if not Assigned(EditView) then
+    Exit;
+
+  EditView.Position.MoveCursor(mmSkipWord + mmSkipLeft + mmSkipStream);
+  EditView.Position.MoveCursor(mmSkipNonWord + mmSkipLeft + mmSkipStream);
+
+  SetEditorFocus(EditView);
+end;
+
+procedure TDataModuleScript.dwsUnitEditorFunctionsMoveOneWordRightEval(
+  info: TProgramInfo);
+var
+  EditView: IOTAEditView;
+begin
+  // get edit view and check for availability
+  EditView := GetEditView;
+  if not Assigned(EditView) then
+    Exit;
+
+  EditView.Position.MoveCursor(mmSkipWord + mmSkipRight + mmSkipStream);
+  EditView.Position.MoveCursor(mmSkipNonWord + mmSkipRight + mmSkipStream);
+
+  SetEditorFocus(EditView);
+end;
+
+procedure TDataModuleScript.dwsUnitEditorFunctionsPageDownEval(
+  info: TProgramInfo);
+var
+  EditView: IOTAEditView;
+begin
+  // get edit view and check for availability
+  EditView := GetEditView;
+  if not Assigned(EditView) then
+    Exit;
+
+  // goto bookmark
+  EditView.PageDown;
+end;
+
+procedure TDataModuleScript.dwsUnitEditorFunctionsPageUpEval(
+  info: TProgramInfo);
+var
+  EditView: IOTAEditView;
+begin
+  // get edit view and check for availability
+  EditView := GetEditView;
+  if not Assigned(EditView) then
+    Exit;
+
+  // goto bookmark
+  EditView.PageUp;
+end;
+
+procedure TDataModuleScript.dwsUnitEditorFunctionsReplaceAllEval(
+  info: TProgramInfo);
+var
+  EditView: IOTAEditView;
+  EditBuffer: IOTAEditBuffer;
+  ErrorCode, Result: Integer;
+  Old, New: string;
+begin
+  // get edit view and check for availability
+  EditView := GetEditView;
+  if not Assigned(EditView) then
+    Exit;
+
+  // get edit buffer
+  EditBuffer := EditView.Buffer;
+  Assert(Assigned(EditBuffer));
+
+  Old := Info.ParamAsString[0];
+  New := Info.ParamAsString[1];
+
+  // perform replace
+  Result := EditBuffer.EditPosition.Replace(Old, New, True, False, True,
+    sdForward, ErrorCode);
+
+  Info.ResultAsBoolean := Result <> 0;
+
+  // check for an error code and handle
+  if ErrorCode <> 0 then
+    raise Exception.Create(
+      EditBuffer.EditPosition.GetSearchErrorString(ErrorCode));
+
+  // replace again
+  while Result <> 0 do
+    Result := EditBuffer.EditPosition.ReplaceAgain;
+end;
+
+procedure TDataModuleScript.SetEditorFocus(EditView: IOTAEditView);
+var
+  Form: TCustomForm;
+
+  function SetEditorControlFocus(AControl: TControl): Boolean;
+  var
+    Index: Integer;
+  begin
+    Result := False;
+    if AControl = nil then
+      Exit;
+
+    if AControl is TWinControl then
+    begin
+      if AControl.Name = 'Editor' then
+      begin
+        TWinControl(AControl).SetFocus;
+        Exit(True);
+      end;
+      for Index := 0 to TWinControl(AControl).ControlCount - 1 do
+      begin
+        Result := SetEditorControlFocus(TWinControl(AControl).Controls[Index]);
+        if Result then
+          Exit;
+      end;
+    end;
+  end;
+
+begin
+  // ensure that an edit view has been passed
+  if not Assigned(EditView) then
+    Exit;
+
+  // show buffer and re-paint
+  EditView.Buffer.Show;
+  EditView.Paint;
+  EditView.Buffer.Show;
+
+  Form := EditView.GetEditWindow.Form;
+  SetEditorControlFocus(Form);
+
+  // show buffer and re-paint
+  EditView.Buffer.Show;
+  EditView.Paint;
+  EditView.Buffer.Show;
+end;
+
+procedure TDataModuleScript.dwsUnitEditorFunctionsSelectCurrentWordEval(
+  info: TProgramInfo);
+var
+  EditView: IOTAEditView;
+  EditPosition: IOTAEditPosition;
+  EditBlock: IOTAEditBlock;
+begin
+  // get edit view and check for availability
+  EditView := GetEditView;
+  if not Assigned(EditView) then
+    Exit;
+
+  EditPosition := EditView.Position;
+  EditBlock := EditView.Block;
+  if EditPosition.IsWordCharacter then
+    EditPosition.MoveCursor(mmSkipLeft or mmSkipWord or mmSkipStream);
+  if EditPosition.IsWhiteSpace then
+    EditPosition.MoveCursor(mmSkipRight or mmSkipWhite or mmSkipStream);
+  if not EditPosition.IsWhiteSpace then
+  begin
+    if not EditPosition.IsWordCharacter then
+    EditPosition.MoveCursor(mmSkipRight or mmSkipNonWord or mmSkipStream);
+    if EditPosition.IsWordCharacter then
+    begin
+      EditBlock.Reset;
+      EditBlock.Style := btNonInclusive;
+      EditBlock.BeginBlock;
+      EditPosition.MoveCursor(mmSkipRight or mmSkipWord or mmSkipStream);
+      EditBlock.EndBlock;
+    end;
+  end;
+
+  SetEditorFocus(EditView);
+end;
+
+procedure TDataModuleScript.dwsUnitHelpFunctionsGetIOTAHelpServicesEval(
+  info: TProgramInfo);
+var
+  HelpServices: IOTAHelpServices;
+begin
+  HelpServices := BorlandIDEServices as IOTAHelpServices;
+  Info.ResultAsVariant := HelpServices as IDispatch;
+end;
+
 procedure TDataModuleScript.dwsUnitInternalFunctionsWriteLnEval(
   info: TProgramInfo);
 begin
@@ -343,10 +589,71 @@ begin
   TDWScriptExpertDockForm(Owner).MemoOutput.Lines.Add(Info.ParamAsString[0])
 end;
 
-function TDataModuleScript.GetSyntaxNode(InterfaceOnly: Boolean = False): TSyntaxNode;
+function TDataModuleScript.GetEditView: IOTAEditView;
 var
   EditorServices: IOTAEditorServices;
+begin
+  EditorServices := BorlandIDEServices as IOTAEditorServices;
+  Result := EditorServices.TopView;
+end;
+
+function TDataModuleScript.GetEditBuffer: IOTAEditBuffer;
+var
   EditView: IOTAEditView;
+begin
+  // check for availability of an edit view
+  EditView := GetEditView;
+  if not Assigned(EditView) then
+    Exit(nil);
+
+  Result := EditView.Buffer;
+end;
+
+procedure TDataModuleScript.dwsUnitSimpleEditorFunctionsLocateTextEval(
+  info: TProgramInfo);
+var
+  EditView: IOTAEditView;
+  ErrorCode: Integer;
+  Found: Boolean;
+begin
+  // get edit view and check for availability
+  EditView := GetEditView;
+  if not Assigned(EditView) then
+    Exit;
+
+  // search for given string
+  Found := EditView.Buffer.EditPosition.Search(Info.ParamAsString[0], False,
+    False, True, sdForward, ErrorCode);
+
+  // eventually paint the view
+  if Found then
+    SetEditorFocus(EditView);
+
+  Info.ResultAsBoolean := Found;
+end;
+
+procedure TDataModuleScript.dwsUnitSimpleEditorFunctionsSetCursorPositionEval(
+  info: TProgramInfo);
+var
+  EditView: IOTAEditView;
+  CursorPos: TOTAEditPos;
+begin
+  // get edit view and check for availability
+  EditView := GetEditView;
+  if not Assigned(EditView) then
+    Exit;
+
+  CursorPos.Line := Info.ParamAsInteger[0];
+  CursorPos.Col := Info.ParamAsInteger[1];
+  EditView.CursorPos := CursorPos;
+
+  // set cursor position
+  EditView.MoveViewToCursor;
+  SetEditorFocus(EditView);
+end;
+
+function TDataModuleScript.GetSyntaxNode(InterfaceOnly: Boolean = False): TSyntaxNode;
+var
   EditBuffer: IOTAEditBuffer;
   EditReader: IOTAEditReader;
   Position: Integer;
@@ -358,15 +665,8 @@ var
 const
   CChunkSize = 8192;
 begin
-  EditorServices := BorlandIDEServices as IOTAEditorServices;
-
-  // check for availability of an edit view
-  EditView := EditorServices.TopView;
-  if not Assigned(EditView) then
-    Exit(nil);
-
-  // check for availability of an edit buffer (should be there)
-  EditBuffer := EditView.Buffer;
+  // get edit buffer and check for availability
+  EditBuffer := GetEditBuffer;
   if not Assigned(EditBuffer) then
     Exit(nil);
 

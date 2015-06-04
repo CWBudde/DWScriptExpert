@@ -24,7 +24,7 @@ object DataModuleScript: TDataModuleScript
   end
   object dwsComConnector: TdwsComConnector
     Script = DelphiWebScript
-    StaticSymbols = False
+    StaticSymbols = True
     Left = 40
     Top = 64
   end
@@ -645,5 +645,1260 @@ object DataModuleScript: TDataModuleScript
     StaticSymbols = False
     Left = 168
     Top = 16
+  end
+  object dwsUnitEditor: TdwsUnit
+    Script = DelphiWebScript
+    Classes = <
+      item
+        Name = 'IOTAEditor'
+        Methods = <
+          item
+            Name = 'GetFileName'
+            ResultType = 'string'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetModified'
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'MarkModified'
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'procedure Show;'
+            Kind = mkProcedure
+          end>
+        Properties = <
+          item
+            Name = 'FileName'
+            DataType = 'string'
+            ReadAccess = 'GetFileName'
+          end
+          item
+            Name = 'Modified'
+            DataType = 'Boolean'
+            ReadAccess = 'GetModified'
+          end>
+      end
+      item
+        Name = 'IOTAEditorContent'
+        Methods = <
+          item
+            Name = 'GetContentAge'
+            ResultType = 'TDateTime'
+            Kind = mkFunction
+          end>
+      end
+      item
+        Name = 'IOTAEditReader'
+      end
+      item
+        Name = 'IOTAEditWriter'
+        Methods = <
+          item
+            Name = 'CopyTo'
+            Parameters = <
+              item
+                Name = 'Pos'
+                DataType = 'Integer'
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'DeleteTo'
+            Parameters = <
+              item
+                Name = 'Pos'
+                DataType = 'Integer'
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'Insert'
+            Parameters = <
+              item
+                Name = 'Text'
+                DataType = 'String'
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'Position'
+            ResultType = 'Integer'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetCurrentPos'
+            ResultType = 'TOTACharPos'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end>
+        Properties = <
+          item
+            Name = 'CurrentPos'
+            DataType = 'TOTACharPos'
+            ReadAccess = 'GetCurrentPos'
+          end>
+      end
+      item
+        Name = 'IOTACustomEditView'
+        Methods = <
+          item
+            Name = 'SameView'
+            Parameters = <
+              item
+                Name = 'EditView'
+                DataType = 'IOTACustomEditView'
+                IsVarParam = True
+                IsWritable = False
+              end>
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end>
+      end
+      item
+        Name = 'IOTAEditView40'
+        Methods = <
+          item
+            Name = 'GetCursorPos'
+            ResultType = 'TOTAEditPos'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'SetCursorPos'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'TOTAEditPos'
+                IsVarParam = True
+                IsWritable = False
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end
+          item
+            Name = 'GetTopPos'
+            ResultType = 'TOTAEditPos'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'SetTopPos'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'TOTAEditPos'
+                IsVarParam = True
+                IsWritable = False
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end
+          item
+            Name = 'GetViewSize'
+            ResultType = 'TSize'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'PosToCharPos'
+            Parameters = <
+              item
+                Name = 'Pos'
+                DataType = 'Integer'
+              end>
+            ResultType = 'TOTACharPos'
+            Kind = mkFunction
+          end
+          item
+            Name = 'CharPosToPos'
+            Parameters = <
+              item
+                Name = 'CharPos'
+                DataType = 'TOTACharPos'
+              end>
+            ResultType = 'Integer'
+            Kind = mkFunction
+          end
+          item
+            Name = 'ConvertPos'
+            Parameters = <
+              item
+                Name = 'EdPosToCharPos'
+                DataType = 'Boolean'
+              end
+              item
+                Name = 'EditPos'
+                DataType = 'TOTAEditPos'
+                IsVarParam = True
+              end
+              item
+                Name = 'CharPos'
+                DataType = 'TOTACharPos'
+                IsVarParam = True
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'GetAttributeAtPos'
+            Parameters = <
+              item
+                Name = 'EdPos'
+                DataType = 'TOTAEditPos'
+                IsVarParam = True
+                IsWritable = False
+              end
+              item
+                Name = 'IncludeMargin'
+                DataType = 'Boolean'
+              end
+              item
+                Name = 'Element'
+                DataType = 'Integer'
+                IsVarParam = True
+              end
+              item
+                Name = 'LineFlag'
+                DataType = 'Integer'
+                IsVarParam = True
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SameView'
+            Parameters = <
+              item
+                Name = 'EditView'
+                DataType = 'IOTAEditView'
+                IsVarParam = True
+                IsWritable = False
+              end>
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end>
+        Properties = <
+          item
+            Name = 'CursorPos'
+            DataType = 'TOTAEditPos'
+            ReadAccess = 'GetCursorPos'
+            WriteAccess = 'SetCursorPos'
+          end
+          item
+            Name = 'TopPos'
+            DataType = 'TOTAEditPos'
+            ReadAccess = 'GetTopPos'
+            WriteAccess = 'SetTopPos'
+          end
+          item
+            Name = 'ViewSize'
+            DataType = 'TSize'
+            ReadAccess = 'GetViewSize'
+          end>
+      end
+      item
+        Name = 'IOTASearchOptions'
+        Methods = <
+          item
+            Name = 'GetCaseSensitive'
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetDirection'
+            ResultType = 'TSearchDirection'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetFromCursor'
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetRegularExpression'
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetSearchText'
+            ResultType = 'string'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetWholeFile'
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetWordBoundary'
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'SetCaseSensitive'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetDirection'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'TSearchDirection'
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetFromCursor'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetRegularExpression'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetSearchText'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'string'
+                IsVarParam = True
+                IsWritable = False
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetWholeFile'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetWordBoundary'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Kind = mkProcedure
+          end>
+        Properties = <
+          item
+            Name = 'CaseSensitive'
+            DataType = 'Boolean'
+            ReadAccess = 'GetCaseSensitive'
+            WriteAccess = 'SetCaseSensitive'
+          end
+          item
+            Name = 'Direction'
+            DataType = 'TSearchDirection'
+            ReadAccess = 'GetDirection'
+            WriteAccess = 'SetDirection'
+          end
+          item
+            Name = 'FromCursor'
+            DataType = 'Boolean'
+            ReadAccess = 'GetFromCursor'
+            WriteAccess = 'SetFromCursor'
+          end
+          item
+            Name = 'RegularExpression'
+            DataType = 'Boolean'
+            ReadAccess = 'GetRegularExpression'
+            WriteAccess = 'SetRegularExpression'
+          end
+          item
+            Name = 'SearchText'
+            DataType = 'string'
+            ReadAccess = 'GetSearchText'
+            WriteAccess = 'SetSearchText'
+          end
+          item
+            Name = 'WholeFile'
+            DataType = 'Boolean'
+            ReadAccess = 'GetWholeFile'
+            WriteAccess = 'SetWholeFile'
+          end
+          item
+            Name = 'WordBoundary'
+            DataType = 'Boolean'
+            ReadAccess = 'GetWordBoundary'
+            WriteAccess = 'SetWordBoundary'
+          end>
+      end
+      item
+        Name = 'IOTAReplaceOptions'
+        Methods = <
+          item
+            Name = 'GetPromptOnReplace'
+            ResultType = 'Boolean'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetReplaceAll'
+            ResultType = 'Boolean'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetReplaceText'
+            ResultType = 'string'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'SetPromptOnReplace'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetReplaceAll'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetReplaceText'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'string'
+                IsVarParam = True
+                IsWritable = False
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end>
+        Properties = <
+          item
+            Name = 'PromptOnReplace'
+            DataType = 'Boolean'
+            ReadAccess = 'GetPromptOnReplace'
+            WriteAccess = 'SetPromptOnReplace'
+          end
+          item
+            Name = 'ReplaceAll'
+            DataType = 'Boolean'
+            ReadAccess = 'GetReplaceAll'
+            WriteAccess = 'SetReplaceAll'
+          end
+          item
+            Name = 'ReplaceText'
+            DataType = 'string'
+            ReadAccess = 'GetReplaceText'
+            WriteAccess = 'SetReplaceText'
+          end>
+      end
+      item
+        Name = 'IOTAEditPosition'
+        Methods = <
+          item
+            Name = 'Align'
+            Parameters = <
+              item
+                Name = 'Magnitude'
+                DataType = 'Integer'
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'BackspaceDelete'
+            Parameters = <
+              item
+                Name = 'HowMany'
+                DataType = 'Integer'
+              end>
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'Delete'
+            Parameters = <
+              item
+                Name = 'HowMany'
+                DataType = 'Integer'
+              end>
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'DistanceToTab'
+            Parameters = <
+              item
+                Name = 'Direction'
+                DataType = 'TSearchDirection'
+              end>
+            ResultType = 'Integer'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetCharacter'
+            ResultType = 'String'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetColumn'
+            ResultType = 'Integer'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetIsSpecialCharacter'
+            ResultType = 'Boolean'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetIsWhitespace'
+            ResultType = 'Boolean'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetIsWordCharacter'
+            ResultType = 'Boolean'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetLastRow'
+            ResultType = 'Integer'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetReplaceOptions'
+            ResultType = 'IOTAReplaceOptions'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetRow'
+            ResultType = 'Integer'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetSearchErrorString'
+            Parameters = <
+              item
+                Name = 'ErrorCode'
+                DataType = 'Integer'
+              end>
+            ResultType = 'string'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetSearchOptions'
+            ResultType = 'IOTASearchOptions'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GotoLine'
+            Parameters = <
+              item
+                Name = 'LineNumber'
+                DataType = 'Integer'
+              end>
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'InsertBlock'
+            Parameters = <
+              item
+                Name = 'Block'
+                DataType = 'IOTAEditBlock'
+                IsVarParam = True
+                IsWritable = False
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'InsertCharacter'
+            Parameters = <
+              item
+                Name = 'Character'
+                DataType = 'String'
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'InsertFile'
+            Parameters = <
+              item
+                Name = 'FileName'
+                DataType = 'string'
+                IsVarParam = True
+                IsWritable = False
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'InsertText'
+            Parameters = <
+              item
+                Name = 'Text'
+                DataType = 'string'
+                IsVarParam = True
+                IsWritable = False
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'Move'
+            Parameters = <
+              item
+                Name = 'Row'
+                DataType = 'Integer'
+              end
+              item
+                Name = 'Col'
+                DataType = 'Integer'
+              end>
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'MoveBOL'
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'MoveCursor'
+            Parameters = <
+              item
+                Name = 'MoveMask'
+                DataType = 'Integer'
+              end>
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'MoveEOF'
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'MoveEOL'
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'MoveReal'
+            Parameters = <
+              item
+                Name = 'Row'
+                DataType = 'Integer'
+              end
+              item
+                Name = 'Col'
+                DataType = 'Integer'
+              end>
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'MoveRelative'
+            Parameters = <
+              item
+                Name = 'Row'
+                DataType = 'Integer'
+              end
+              item
+                Name = 'Col'
+                DataType = 'Integer'
+              end>
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'procedure Paste;'
+            Kind = mkProcedure
+          end
+          item
+            Name = 'Read'
+            Parameters = <
+              item
+                Name = 'NumberOfCharacters'
+                DataType = 'Integer'
+              end>
+            ResultType = 'string'
+            Kind = mkFunction
+          end
+          item
+            Name = 'RepeatLastSearchOrReplace'
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'Replace'
+            Parameters = <
+              item
+                Name = 'Pattern'
+                DataType = 'string'
+                IsVarParam = True
+                IsWritable = False
+              end
+              item
+                Name = 'ReplaceText'
+                DataType = 'string'
+                IsVarParam = True
+                IsWritable = False
+              end
+              item
+                Name = 'CaseSensitive'
+                DataType = 'Boolean'
+              end
+              item
+                Name = 'RegularExpression'
+                DataType = 'Boolean'
+              end
+              item
+                Name = 'WholeFile'
+                DataType = 'Boolean'
+              end
+              item
+                Name = 'Direction'
+                DataType = 'TSearchDirection'
+              end
+              item
+                Name = 'ErrorCode'
+                DataType = 'Integer'
+                IsVarParam = True
+              end>
+            ResultType = 'Integer'
+            Overloaded = True
+            Kind = mkFunction
+          end
+          item
+            Name = 'Replace'
+            ResultType = 'Integer'
+            Overloaded = True
+            Kind = mkFunction
+          end
+          item
+            Name = 'ReplaceAgain'
+            ResultType = 'Integer'
+            Kind = mkFunction
+          end
+          item
+            Name = 'procedure Restore;'
+            Kind = mkProcedure
+          end
+          item
+            Name = 'RipText'
+            Parameters = <
+              item
+                Name = 'ValidChars'
+                DataType = 'string'
+                IsVarParam = True
+                IsWritable = False
+              end
+              item
+                Name = 'RipFlags'
+                DataType = 'Integer'
+              end>
+            ResultType = 'string'
+            Kind = mkFunction
+          end
+          item
+            Name = 'procedure Save;'
+            Kind = mkProcedure
+          end
+          item
+            Name = 'Search'
+            Parameters = <
+              item
+                Name = 'Pattern'
+                DataType = 'string'
+                IsVarParam = True
+                IsWritable = False
+              end
+              item
+                Name = 'CaseSensitive'
+                DataType = 'Boolean'
+              end
+              item
+                Name = 'RegularExpression'
+                DataType = 'Boolean'
+              end
+              item
+                Name = 'WholeFile'
+                DataType = 'Boolean'
+              end
+              item
+                Name = 'Direction'
+                DataType = 'TSearchDirection'
+              end
+              item
+                Name = 'ErrorCode'
+                DataType = 'Integer'
+                IsVarParam = True
+              end>
+            ResultType = 'Boolean'
+            Overloaded = True
+            Kind = mkFunction
+          end
+          item
+            Name = 'Search'
+            ResultType = 'Boolean'
+            Overloaded = True
+            Kind = mkFunction
+          end
+          item
+            Name = 'SearchAgain'
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'Tab'
+            Parameters = <
+              item
+                Name = 'Magnitude'
+                DataType = 'Integer'
+              end>
+            Kind = mkProcedure
+          end>
+        Properties = <
+          item
+            Name = 'Character'
+            DataType = 'String'
+            ReadAccess = 'GetCharacter'
+          end
+          item
+            Name = 'Column'
+            DataType = 'Integer'
+            ReadAccess = 'GetColumn'
+          end
+          item
+            Name = 'IsSpecialCharacter'
+            DataType = 'Boolean'
+            ReadAccess = 'GetIsSpecialCharacter'
+          end
+          item
+            Name = 'IsWhiteSpace'
+            DataType = 'Boolean'
+            ReadAccess = 'GetIsWhiteSpace'
+          end
+          item
+            Name = 'IsWordCharacter'
+            DataType = 'Boolean'
+            ReadAccess = 'GetIsWordCharacter'
+          end
+          item
+            Name = 'LastRow'
+            DataType = 'Integer'
+            ReadAccess = 'GetLastRow'
+          end
+          item
+            Name = 'ReplaceOptions'
+            DataType = 'IOTAReplaceOptions'
+            ReadAccess = 'GetReplaceOptions'
+          end
+          item
+            Name = 'Row'
+            DataType = 'Integer'
+            ReadAccess = 'GetRow'
+          end
+          item
+            Name = 'SearchOptions'
+            DataType = 'IOTASearchOptions'
+            ReadAccess = 'GetSearchOptions'
+          end>
+      end
+      item
+        Name = 'IOTASyncEditPoint100'
+      end
+      item
+        Name = 'IOTASyncEditPoint'
+      end
+      item
+        Name = 'IOTASyncEditPoints'
+      end
+      item
+        Name = 'IOTAEditBlock90'
+      end
+      item
+        Name = 'IOTAEditBlock'
+      end
+      item
+        Name = 'INTAEditWindow'
+      end
+      item
+        Name = 'IOTAEditView140'
+        Ancestor = 'IOTAEditView40'
+      end
+      item
+        Name = 'IOTAEditView145'
+        Ancestor = 'IOTAEditView140'
+      end
+      item
+        Name = 'IOTAEditView'
+        Ancestor = 'IOTAEditView145'
+      end
+      item
+        Name = 'IOTASourceEditor70'
+        Ancestor = 'IOTAEditor'
+      end
+      item
+        Name = 'IOTASourceEditor'
+        Ancestor = 'IOTASourceEditor70'
+      end
+      item
+        Name = 'IOTAEditLineTracker'
+      end
+      item
+        Name = 'IOTAEditBuffer60'
+        Ancestor = 'IOTASourceEditor'
+      end
+      item
+        Name = 'IOTAEditBuffer'
+        Ancestor = 'IOTAEditBuffer60'
+      end
+      item
+        Name = 'IOTAEditBufferIterator'
+      end
+      item
+        Name = 'IOTAKeyContext'
+      end
+      item
+        Name = 'IOTAKeyboardServices'
+      end
+      item
+        Name = 'IOTAEditOptions60'
+      end
+      item
+        Name = 'IOTAEditOptions'
+        Ancestor = 'IOTAEditOptions60'
+      end
+      item
+        Name = 'IOTAEditorServices60'
+      end
+      item
+        Name = 'IOTAEditorServices70'
+        Ancestor = 'IOTAEditorServices60'
+      end
+      item
+        Name = 'IOTAEditorServices80'
+        Ancestor = 'IOTAEditorServices70'
+      end
+      item
+        Name = 'IOTAEditorServices'
+        Ancestor = 'IOTAEditorServices80'
+      end
+      item
+        Name = 'INTAEditorServices'
+      end
+      item
+        Name = 'INTACustomEditorView'
+      end
+      item
+        Name = 'INTACustomEditorView150'
+        Ancestor = 'INTACustomEditorView'
+      end
+      item
+        Name = 'INTACustomEditorViewState'
+      end
+      item
+        Name = 'INTACustomEditorViewStatusPanel'
+      end
+      item
+        Name = 'INTACustomEditorSubView'
+      end
+      item
+        Name = 'IOTAEditorViewServices140'
+      end
+      item
+        Name = 'IOTAEditorViewServices'
+        Ancestor = 'IOTAEditorViewServices140'
+      end
+      item
+        Name = 'INTAEditorViewServices'
+      end>
+    Constants = <
+      item
+        Name = 'mmSkipWord'
+        DataType = 'Integer'
+        Value = '0'
+      end
+      item
+        Name = 'mmSkipNonWord'
+        DataType = 'Integer'
+        Value = '1'
+      end
+      item
+        Name = 'mmSkipWhite'
+        DataType = 'Integer'
+        Value = '3'
+      end
+      item
+        Name = 'mmSkipSpecial'
+        DataType = 'Integer'
+        Value = '4'
+      end
+      item
+        Name = 'mmSkipNonSpecial'
+        DataType = 'Integer'
+        Value = '5'
+      end
+      item
+        Name = 'mmSkipLeft'
+        DataType = 'Integer'
+        Value = '0'
+      end
+      item
+        Name = 'mmSkipRight'
+        DataType = 'Integer'
+        Value = 16
+      end
+      item
+        Name = 'mmSkipStream'
+        DataType = 'Integer'
+        Value = 32
+      end>
+    Enumerations = <
+      item
+        Name = 'TSearchDirection'
+        Elements = <
+          item
+            Name = 'sdForward'
+          end
+          item
+            Name = 'sdBackward'
+          end>
+      end
+      item
+        Name = 'TOTASyncMode'
+        Elements = <
+          item
+            Name = 'smNone'
+          end
+          item
+            Name = 'smNormal'
+          end
+          item
+            Name = 'smTemplates'
+          end>
+      end>
+    Forwards = <
+      item
+        Name = 'IOTAEditView'
+      end
+      item
+        Name = 'IOTAEditBuffer'
+      end
+      item
+        Name = 'IOTAEditOptions'
+      end
+      item
+        Name = 'IOTAEditorServices'
+      end
+      item
+        Name = 'IOTAKeyboardServices'
+      end
+      item
+        Name = 'IOTAKeyContext'
+      end
+      item
+        Name = 'IOTAEditBlock'
+      end>
+    Functions = <
+      item
+        Name = 'SetCursorPosition'
+        Parameters = <
+          item
+            Name = 'Line'
+            DataType = 'Integer'
+          end
+          item
+            Name = 'Column'
+            DataType = 'Integer'
+          end>
+        OnEval = dwsUnitSimpleEditorFunctionsSetCursorPositionEval
+      end
+      item
+        Name = 'LocateText'
+        Parameters = <
+          item
+            Name = 'Text'
+            DataType = 'string'
+          end>
+        ResultType = 'Boolean'
+        OnEval = dwsUnitSimpleEditorFunctionsLocateTextEval
+      end
+      item
+        Name = 'ReplaceAll'
+        Parameters = <
+          item
+            Name = 'Pattern'
+            DataType = 'string'
+          end
+          item
+            Name = 'ReplaceText'
+            DataType = 'string'
+          end>
+        ResultType = 'Boolean'
+        OnEval = dwsUnitEditorFunctionsReplaceAllEval
+      end
+      item
+        Name = 'CenterCursor'
+        Parameters = <
+          item
+            Name = 'Line'
+            DataType = 'Integer'
+          end
+          item
+            Name = 'Column'
+            DataType = 'Integer'
+          end>
+        OnEval = dwsUnitEditorFunctionsCenterCursorEval
+      end
+      item
+        Name = 'PageDown'
+        OnEval = dwsUnitEditorFunctionsPageDownEval
+      end
+      item
+        Name = 'PageUp'
+        OnEval = dwsUnitEditorFunctionsPageUpEval
+      end
+      item
+        Name = 'GotoBookmark'
+        Parameters = <
+          item
+            Name = 'BookmarkID'
+            DataType = 'Integer'
+          end>
+        ResultType = 'Boolean'
+        OnEval = dwsUnitEditorFunctionsGotoBookmarkEval
+      end
+      item
+        Name = 'MoveCursor'
+        Parameters = <
+          item
+            Name = 'MoveMask'
+            DataType = 'TMoveCursorMasks'
+          end>
+        OnEval = dwsUnitEditorFunctionsMoveCursorEval
+      end
+      item
+        Name = 'SelectCurrentWord'
+        OnEval = dwsUnitEditorFunctionsSelectCurrentWordEval
+      end
+      item
+        Name = 'MoveOneWordRight'
+        OnEval = dwsUnitEditorFunctionsMoveOneWordRightEval
+      end
+      item
+        Name = 'MoveOneWordLeft'
+        OnEval = dwsUnitEditorFunctionsMoveOneWordLeftEval
+      end
+      item
+        Name = 'InsertText'
+        Parameters = <
+          item
+            Name = 'Text'
+            DataType = 'string'
+          end>
+        OnEval = dwsUnitEditorFunctionsInsertTextEval
+      end>
+    Records = <
+      item
+        Name = 'TOTAEditPos'
+        Members = <
+          item
+            Name = 'Col'
+            DataType = 'Integer'
+          end
+          item
+            Name = 'Line'
+            DataType = 'Integer'
+          end>
+        Properties = <>
+      end
+      item
+        Name = 'TOTACharPos'
+        Members = <
+          item
+            Name = 'CharIndex'
+            DataType = 'Integer'
+          end
+          item
+            Name = 'Line'
+            DataType = 'Integer'
+          end>
+        Properties = <>
+      end
+      item
+        Name = 'TSize'
+        Members = <
+          item
+            Name = 'X'
+            DataType = 'Integer'
+          end
+          item
+            Name = 'Y'
+            DataType = 'Integer'
+          end>
+        Properties = <>
+      end>
+    Synonyms = <
+      item
+        Name = 'TDateTime'
+        DataType = 'Float'
+      end
+      item
+        Name = 'TMoveCursorMasks'
+        DataType = 'Integer'
+      end>
+    UnitName = 'Editor'
+    StaticSymbols = False
+    Left = 168
+    Top = 112
+  end
+  object dwsUnitHelp: TdwsUnit
+    Script = DelphiWebScript
+    Functions = <
+      item
+        Name = 'GetIOTAHelpServices'
+        ResultType = 'Variant'
+        OnEval = dwsUnitHelpFunctionsGetIOTAHelpServicesEval
+      end>
+    UnitName = 'HelpServices'
+    StaticSymbols = False
+    Left = 168
+    Top = 160
   end
 end
