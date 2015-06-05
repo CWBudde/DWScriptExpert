@@ -744,6 +744,31 @@ object DataModuleScript: TDataModuleScript
           end>
       end
       item
+        Name = 'IOTAHighlighter'
+        Methods = <
+          item
+            Name = 'GetIDString'
+            ResultType = 'string'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetName'
+            ResultType = 'string'
+            Kind = mkFunction
+          end>
+        Properties = <
+          item
+            Name = 'Name'
+            DataType = 'string'
+            ReadAccess = 'GetName'
+          end
+          item
+            Name = 'IDString'
+            DataType = 'string'
+            ReadAccess = 'GetIDString'
+          end>
+      end
+      item
         Name = 'IOTACustomEditView'
         Methods = <
           item
@@ -1598,29 +1623,553 @@ object DataModuleScript: TDataModuleScript
         Name = 'IOTAKeyboardServices'
       end
       item
+        Name = 'IOTASpeedSetting'
+        Methods = <
+          item
+            Name = 'GetDisplayName'
+            ResultType = 'string'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetName'
+            ResultType = 'string'
+            Kind = mkFunction
+          end
+          item
+            Name = 'ExecuteSetting'
+            Parameters = <
+              item
+                Name = 'EditOptions'
+                DataType = 'IOTAEditOptions'
+                IsVarParam = True
+                IsWritable = False
+              end>
+            Kind = mkProcedure
+          end>
+        Properties = <
+          item
+            Name = 'DisplayName'
+            DataType = 'string'
+            ReadAccess = 'GetDisplayName'
+          end
+          item
+            Name = 'Name'
+            DataType = 'string'
+            ReadAccess = 'GetName'
+          end>
+      end
+      item
         Name = 'IOTAEditOptions60'
+        Methods = <
+          item
+            Name = 'AddSpeedSetting'
+            Parameters = <
+              item
+                Name = 'SpeedSetting'
+                DataType = 'IOTASpeedSetting'
+                IsVarParam = True
+                IsWritable = False
+              end>
+            ResultType = 'Integer'
+            Kind = mkFunction
+          end
+          item
+            Name = 'procedure BeginUpdate;'
+            Kind = mkProcedure
+          end
+          item
+            Name = 'procedure EndUpdate;'
+            Kind = mkProcedure
+          end
+          item
+            Name = 'GetBlockIndent'
+            ResultType = 'Integer'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetBufferOptions'
+            ResultType = 'IOTABufferOptions'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetFontName'
+            ResultType = 'string'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetFontSize'
+            ResultType = 'Integer'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetForceCutCopyEnabled'
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetSpeedSettingCount'
+            ResultType = 'Integer'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetSpeedSetting'
+            Parameters = <
+              item
+                Name = 'Index'
+                DataType = 'Integer'
+              end>
+            ResultType = 'IOTASpeedSetting'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetUseBriefCursorShapes'
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetUseBriefRegularExpressions'
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'RemoveSpeedSetting'
+            Parameters = <
+              item
+                Name = 'Index'
+                DataType = 'Integer'
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetBlockIndent'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Integer'
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetFontName'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'string'
+                IsVarParam = True
+                IsWritable = False
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetFontSize'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Integer'
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetForceCutCopyEnabled'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetSpeedSetting'
+            Parameters = <
+              item
+                Name = 'Name'
+                DataType = 'string'
+                IsVarParam = True
+                IsWritable = False
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetUseBriefCursorShapes'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetUseBriefRegularExpressions'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Kind = mkProcedure
+          end>
+        Properties = <
+          item
+            Name = 'BlockIndent'
+            DataType = 'Integer'
+            ReadAccess = 'GetBlockIndent'
+            WriteAccess = 'SetBlockIndent'
+          end
+          item
+            Name = 'BufferOptions'
+            DataType = 'IOTABufferOptions'
+            ReadAccess = 'GetBufferOptions'
+          end
+          item
+            Name = 'FontName'
+            DataType = 'string'
+            ReadAccess = 'GetFontName'
+            WriteAccess = 'SetFontName'
+          end
+          item
+            Name = 'FontSize'
+            DataType = 'Integer'
+            ReadAccess = 'GetFontSize'
+            WriteAccess = 'SetFontSize'
+          end
+          item
+            Name = 'ForceCutCopyEnabled'
+            DataType = 'Boolean'
+            ReadAccess = 'GetForceCutCopyEnabled'
+            WriteAccess = 'SetForceCutCopyEnabled'
+          end
+          item
+            Name = 'SpeedSettingCount'
+            DataType = 'Integer'
+            ReadAccess = 'GetSpeedSettingCount'
+          end
+          item
+            Name = 'SpeedSettings'
+            DataType = 'IOTASpeedSetting'
+            ReadAccess = 'GetSpeedSetting'
+            Parameters = <
+              item
+                Name = 'Index'
+                DataType = 'Integer'
+              end>
+          end
+          item
+            Name = 'UseBriefCursorShapes'
+            DataType = 'Boolean'
+            ReadAccess = 'GetUseBriefCursorShapes'
+            WriteAccess = 'SetUseBriefCursorShapes'
+          end
+          item
+            Name = 'UseBriefRegularExpressions'
+            DataType = 'Boolean'
+            ReadAccess = 'GetUseBriefRegularExpressions'
+            WriteAccess = 'SetUseBriefRegularExpressions'
+          end>
       end
       item
         Name = 'IOTAEditOptions'
         Ancestor = 'IOTAEditOptions60'
+        Methods = <
+          item
+            Name = 'GetExtensions'
+            ResultType = 'string'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetOptionsName'
+            ResultType = 'string'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetOptionsIDString'
+            ResultType = 'string'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetSyntaxHighlighter'
+            ResultType = 'IOTAHighlighter'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetOptionsIndex'
+            ResultType = 'Integer'
+            Kind = mkFunction
+          end
+          item
+            Name = 'SetExtensions'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'string'
+                IsVarParam = True
+                IsWritable = False
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetOptionsName'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'string'
+                IsVarParam = True
+                IsWritable = False
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetSyntaxHighlighter'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'IOTAHighlighter'
+                IsVarParam = True
+                IsWritable = False
+              end>
+            Kind = mkProcedure
+          end>
+        Properties = <
+          item
+            Name = 'Extensions'
+            DataType = 'string'
+            ReadAccess = 'GetExtensions'
+            WriteAccess = 'SetExtensions'
+          end
+          item
+            Name = 'OptionsName'
+            DataType = 'string'
+            ReadAccess = 'GetOptionsName'
+            WriteAccess = 'SetOptionsName'
+          end
+          item
+            Name = 'IDString'
+            DataType = 'string'
+            ReadAccess = 'GetOptionsIDString'
+          end
+          item
+            Name = 'SyntaxHighlighter'
+            DataType = 'IOTAHighlighter'
+            ReadAccess = 'GetSyntaxHighlighter'
+            WriteAccess = 'SetSyntaxHighlighter'
+          end
+          item
+            Name = 'OptionsIndex'
+            DataType = 'Integer'
+            ReadAccess = 'GetOptionsIndex'
+          end>
       end
       item
         Name = 'IOTAEditorServices60'
+        IsStatic = True
+        Methods = <
+          item
+            Name = 'GetEditOptions'
+            ResultType = 'IOTAEditOptions'
+            OnEval = dwsUnitEditorClassesIOTAEditorServices60MethodsGetEditOptionsEval
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetKeyboardServices'
+            ResultType = 'IOTAKeyboardServices'
+            OnEval = dwsUnitEditorClassesIOTAEditorServices60MethodsGetKeyboardServicesEval
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetTopBuffer'
+            ResultType = 'IOTAEditBuffer'
+            OnEval = dwsUnitEditorClassesIOTAEditorServices60MethodsGetTopBufferEval
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetTopView'
+            ResultType = 'IOTAEditView'
+            OnEval = dwsUnitEditorClassesIOTAEditorServices60MethodsGetTopViewEval
+            Kind = mkFunction
+          end>
+        Properties = <
+          item
+            Name = 'EditOptions'
+            DataType = 'IOTAEditOptions'
+            ReadAccess = 'GetEditOptions'
+          end
+          item
+            Name = 'KeyboardServices'
+            DataType = 'IOTAKeyboardServices'
+            ReadAccess = 'GetKeyboardServices'
+          end
+          item
+            Name = 'TopBuffer'
+            DataType = 'IOTAEditBuffer'
+            ReadAccess = 'GetTopBuffer'
+          end
+          item
+            Name = 'TopView'
+            DataType = 'IOTAEditView'
+            ReadAccess = 'GetTopView'
+          end>
       end
       item
         Name = 'IOTAEditorServices70'
         Ancestor = 'IOTAEditorServices60'
+        IsStatic = True
+        Methods = <
+          item
+            Name = 'GetEditOptionsCount'
+            ResultType = 'Integer'
+            OnEval = dwsUnitEditorClassesIOTAEditorServices70MethodsGetEditOptionsCountEval
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetEditOptionsIndex'
+            Parameters = <
+              item
+                Name = 'Index'
+                DataType = 'Integer'
+              end>
+            ResultType = 'IOTAEditOptions'
+            OnEval = dwsUnitEditorClassesIOTAEditorServices70MethodsGetEditOptionsIndexEval
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetEditOptions'
+            Parameters = <
+              item
+                Name = 'IDString'
+                DataType = 'string'
+                IsVarParam = True
+                IsWritable = False
+              end>
+            ResultType = 'IOTAEditOptions'
+            OnEval = dwsUnitEditorClassesIOTAEditorServices70MethodsGetEditOptionsEval
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetEditOptionsForFile'
+            Parameters = <
+              item
+                Name = 'FileName'
+                DataType = 'string'
+                IsVarParam = True
+                IsWritable = False
+              end>
+            ResultType = 'IOTAEditOptions'
+            OnEval = dwsUnitEditorClassesIOTAEditorServices70MethodsGetEditOptionsForFileEval
+            Kind = mkFunction
+          end
+          item
+            Name = 'AddEditOptions'
+            Parameters = <
+              item
+                Name = 'IDString'
+                DataType = 'string'
+                IsVarParam = True
+                IsWritable = False
+              end>
+            ResultType = 'IOTAEditOptions'
+            OnEval = dwsUnitEditorClassesIOTAEditorServices70MethodsAddEditOptionsEval
+            Kind = mkFunction
+          end
+          item
+            Name = 'DeleteEditOptions'
+            Parameters = <
+              item
+                Name = 'IDString'
+                DataType = 'string'
+                IsVarParam = True
+                IsWritable = False
+              end>
+            OnEval = dwsUnitEditorClassesIOTAEditorServices70MethodsDeleteEditOptionsEval
+            Kind = mkProcedure
+          end>
+        Properties = <
+          item
+            Name = 'EditOptionsCount'
+            DataType = 'Integer'
+            ReadAccess = 'GetEditOptionsCount'
+          end
+          item
+            Name = 'EditorOptions'
+            DataType = 'IOTAEditOptions'
+            ReadAccess = 'GetEditOptionsIndex'
+            Parameters = <
+              item
+                Name = 'Index'
+                DataType = 'Integer'
+              end>
+          end>
       end
       item
         Name = 'IOTAEditorServices80'
         Ancestor = 'IOTAEditorServices70'
+        IsStatic = True
       end
       item
         Name = 'IOTAEditorServices'
         Ancestor = 'IOTAEditorServices80'
+        IsStatic = True
+        Methods = <
+          item
+            Name = 'GetEditOptionsIDString'
+            Parameters = <
+              item
+                Name = 'FileName'
+                DataType = 'String'
+                IsVarParam = True
+                IsWritable = False
+              end>
+            ResultType = 'String'
+            OnEval = dwsUnitEditorClassesIOTAEditorServicesMethodsGetEditOptionsIDStringEval
+            Kind = mkFunction
+          end>
       end
       item
         Name = 'INTAEditorServices'
+        Methods = <
+          item
+            Name = 'GetEditWindowCount'
+            ResultType = 'Integer'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetEditWindow'
+            Parameters = <
+              item
+                Name = 'Index'
+                DataType = 'Integer'
+              end>
+            ResultType = 'INTAEditWindow'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetTopEditWindow'
+            ResultType = 'INTAEditWindow'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end>
+        Properties = <
+          item
+            Name = 'EditWindowCount'
+            DataType = 'Integer'
+            ReadAccess = 'GetEditWindowCount'
+          end
+          item
+            Name = 'EditWindow'
+            DataType = 'INTAEditWindow'
+            ReadAccess = 'GetEditWindow'
+            Parameters = <
+              item
+                Name = 'Index'
+                DataType = 'Integer'
+              end>
+          end
+          item
+            Name = 'TopEditWindow'
+            DataType = 'INTAEditWindow'
+            ReadAccess = 'GetTopEditWindow'
+          end>
       end
       item
         Name = 'INTACustomEditorView'
@@ -1647,6 +2196,505 @@ object DataModuleScript: TDataModuleScript
       end
       item
         Name = 'INTAEditorViewServices'
+      end
+      item
+        Name = 'IOTABufferOptions60'
+        Methods = <
+          item
+            Name = 'GetAutoIndent'
+            ResultType = 'Boolean'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetBackspaceUnindents'
+            ResultType = 'Boolean'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetCreateBackupFile'
+            ResultType = 'Boolean'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetCursorThroughTabs'
+            ResultType = 'Boolean'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetInsertMode'
+            ResultType = 'Boolean'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetGroupUndo'
+            ResultType = 'Boolean'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetKeepTrailingBlanks'
+            ResultType = 'Boolean'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetLeftGutterWidth'
+            ResultType = 'Integer'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetRightMargin'
+            ResultType = 'Integer'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetOverwriteBlocks'
+            ResultType = 'Boolean'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetPersistentBlocks'
+            ResultType = 'Boolean'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetPreserveLineEnds'
+            ResultType = 'Boolean'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetSmartTab'
+            ResultType = 'Boolean'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetSyntaxHighlight'
+            ResultType = 'Boolean'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetTabStops'
+            ResultType = 'string'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetUndoAfterSave'
+            ResultType = 'Boolean'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetUndoLimit'
+            ResultType = 'Integer'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetUseTabCharacter'
+            ResultType = 'Boolean'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'SetAutoIndent'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetBackspaceUnindents'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetCreateBackupFile'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetCursorThroughTabs'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetInsertMode'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetGroupUndo'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetKeepTrailingBlanks'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetLeftGutterWidth'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Integer'
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetRightMargin'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Integer'
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetOverwriteBlocks'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetPersistentBlocks'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetPreserveLineEnds'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetSmartTab'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetSyntaxHighlight'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetTabStops'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'string'
+                IsVarParam = True
+                IsWritable = False
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetUndoAfterSave'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetUndoLimit'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Integer'
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetUseTabCharacter'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end>
+        Properties = <
+          item
+            Name = 'AutoIndent'
+            DataType = 'Boolean'
+            ReadAccess = 'GetAutoIndent'
+            WriteAccess = 'SetAutoIndent'
+          end
+          item
+            Name = 'BackspaceUnindents'
+            DataType = 'Boolean'
+            ReadAccess = 'GetBackspaceUnindents'
+            WriteAccess = 'SetBackspaceUnindents'
+          end
+          item
+            Name = 'CreateBackupFile'
+            DataType = 'Boolean'
+            ReadAccess = 'GetCreateBackupFile'
+            WriteAccess = 'SetCreateBackupFile'
+          end
+          item
+            Name = 'CursorThroughTabs'
+            DataType = 'Boolean'
+            ReadAccess = 'GetCursorThroughTabs'
+            WriteAccess = 'SetCursorThroughTabs'
+          end
+          item
+            Name = 'InsertMode'
+            DataType = 'Boolean'
+            ReadAccess = 'GetInsertMode'
+            WriteAccess = 'SetInsertMode'
+          end
+          item
+            Name = 'GroupUndo'
+            DataType = 'Boolean'
+            ReadAccess = 'GetGroupUndo'
+            WriteAccess = 'SetGroupUndo'
+          end
+          item
+            Name = 'KeepTrailingBlanks'
+            DataType = 'Boolean'
+            ReadAccess = 'GetKeepTrailingBlanks'
+            WriteAccess = 'SetKeepTrailingBlanks'
+          end
+          item
+            Name = 'LeftGutterWidth'
+            DataType = 'Integer'
+            ReadAccess = 'GetLeftGutterWidth'
+            WriteAccess = 'SetLeftGutterWidth'
+          end
+          item
+            Name = 'RightMargin'
+            DataType = 'Integer'
+            ReadAccess = 'GetRightMargin'
+            WriteAccess = 'SetRightMargin'
+          end
+          item
+            Name = 'OverwriteBlocks'
+            DataType = 'Boolean'
+            ReadAccess = 'GetOverwriteBlocks'
+            WriteAccess = 'SetOverwriteBlocks'
+          end
+          item
+            Name = 'PersistentBlocks'
+            DataType = 'Boolean'
+            ReadAccess = 'GetPersistentBlocks'
+            WriteAccess = 'SetPersistentBlocks'
+          end
+          item
+            Name = 'PreserveLineEnds'
+            DataType = 'Boolean'
+            ReadAccess = 'GetPreserveLineEnds'
+            WriteAccess = 'SetPreserveLineEnds'
+          end
+          item
+            Name = 'SmartTab'
+            DataType = 'Boolean'
+            ReadAccess = 'GetSmartTab'
+            WriteAccess = 'SetSmartTab'
+          end
+          item
+            Name = 'SyntaxHighlight'
+            DataType = 'Boolean'
+            ReadAccess = 'GetSyntaxHighlight'
+            WriteAccess = 'SetSyntaxHighlight'
+          end
+          item
+            Name = 'TabStops'
+            DataType = 'string'
+            ReadAccess = 'GetTabStops'
+            WriteAccess = 'SetTabStops'
+          end
+          item
+            Name = 'UndoAfterSave'
+            DataType = 'Boolean'
+            ReadAccess = 'GetUndoAfterSave'
+            WriteAccess = 'SetUndoAfterSave'
+          end
+          item
+            Name = 'UndoLimit'
+            DataType = 'Integer'
+            ReadAccess = 'GetUndoLimit'
+            WriteAccess = 'SetUndoLimit'
+          end
+          item
+            Name = 'UseTabCharacter'
+            DataType = 'Boolean'
+            ReadAccess = 'GetuseTabCharacter'
+            WriteAccess = 'SetUseTabCharacter'
+          end>
+      end
+      item
+        Name = 'IOTABufferOptions70'
+        Ancestor = 'IOTABufferOptions60'
+        Methods = <
+          item
+            Name = 'GetShowSpace'
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetShowTab'
+            ResultType = 'Boolean'
+            Kind = mkFunction
+          end
+          item
+            Name = 'SetShowSpace'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetShowTab'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Kind = mkProcedure
+          end>
+        Properties = <
+          item
+            Name = 'ShowSpace'
+            DataType = 'Boolean'
+            ReadAccess = 'GetShowSpace'
+            WriteAccess = 'SetShowSpace'
+          end
+          item
+            Name = 'ShowTab'
+            DataType = 'Boolean'
+            ReadAccess = 'GetShowTab'
+            WriteAccess = 'SetShowTab'
+          end>
+      end
+      item
+        Name = 'IOTABufferOptions'
+        Ancestor = 'IOTABufferOptions70'
+        Methods = <
+          item
+            Name = 'GetHighlightCurrentLine'
+            ResultType = 'Boolean'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetShowLineBreaks'
+            ResultType = 'Boolean'
+            Visibility = cvPrivate
+            Kind = mkFunction
+          end
+          item
+            Name = 'SetHighlightCurrentLine'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end
+          item
+            Name = 'SetShowLineBreaks'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'Boolean'
+              end>
+            Visibility = cvPrivate
+            Kind = mkProcedure
+          end>
+        Properties = <
+          item
+            Name = 'HighlightCurrentLine'
+            DataType = 'Boolean'
+            ReadAccess = 'GetHighlightCurrentLine'
+            WriteAccess = 'SetHighlightCurrentLine'
+          end
+          item
+            Name = 'ShowLineBreaks'
+            DataType = 'Boolean'
+            ReadAccess = 'GetShowLineBreaks'
+            WriteAccess = 'SetShowLineBreaks'
+          end>
       end>
     Constants = <
       item

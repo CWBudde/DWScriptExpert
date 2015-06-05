@@ -76,6 +76,28 @@ type
     procedure dwsUnitEditorFunctionsMoveOneWordLeftEval(info: TProgramInfo);
     procedure dwsUnitEditorFunctionsMoveOneWordRightEval(info: TProgramInfo);
     procedure dwsUnitEditorFunctionsInsertTextEval(info: TProgramInfo);
+    procedure dwsUnitEditorClassesIOTAEditorServicesMethodsGetEditOptionsIDStringEval(
+      Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorServices70MethodsGetEditOptionsCountEval(
+      Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorServices70MethodsGetEditOptionsIndexEval(
+      Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorServices70MethodsDeleteEditOptionsEval(
+      Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorServices70MethodsAddEditOptionsEval(
+      Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorServices70MethodsGetEditOptionsForFileEval(
+      Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorServices70MethodsGetEditOptionsEval(
+      Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorServices60MethodsGetTopViewEval(
+      Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorServices60MethodsGetTopBufferEval(
+      Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorServices60MethodsGetKeyboardServicesEval(
+      Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorServices60MethodsGetEditOptionsEval(
+      Info: TProgramInfo; ExtObject: TObject);
   private
     FUnitRTTI: TdwsUnit;
     {$IFDEF UseCryptoModule}
@@ -97,6 +119,10 @@ type
     function GetEditView: IOTAEditView;
     procedure SetEditorFocus(EditView: IOTAEditView);
   public
+  end;
+
+  TIUnknownContainer = class
+    Intf: IUnknown;
   end;
 
 implementation
@@ -335,6 +361,159 @@ procedure TDataModuleScript.dwsUnitDelphiASTFunctionsSyntaxNodeTypeToStringEval(
   info: TProgramInfo);
 begin
   Info.ResultAsString := GetEnumName(TypeInfo(TSyntaxNodeType), Info.ParamAsInteger[0]);
+end;
+
+procedure CreateScriptClassForInterface(Info: TProgramInfo; Intf: IUnknown; Name: string);
+var
+  Container: TIUnknownContainer;
+begin
+  // create interface container (ugly hack to store the interface)
+  Container := TIUnknownContainer.Create;
+  Container.Intf := Intf;
+
+  // create script-side class "containing" the interface
+  Info.ResultAsVariant := Info.Vars[Name].GetConstructor('Create',
+    Container).Call.Value;
+end;
+
+procedure TDataModuleScript.dwsUnitEditorClassesIOTAEditorServices60MethodsGetEditOptionsEval(
+  Info: TProgramInfo; ExtObject: TObject);
+var
+  EditOptions: IOTAEditOptions;
+  Container: TIUnknownContainer;
+begin
+  // get edit options
+  EditOptions := (BorlandIDEServices as IOTAEditorServices).EditOptions;
+
+  // create interface container (ugly hack to store the interface)
+  Container := TIUnknownContainer.Create;
+  Container.Intf := EditOptions;
+
+  // create script-side class "containing" the interface
+  Info.ResultAsVariant := Info.Vars['IOTAEditOptions'].GetConstructor('Create', Container).Call.Value;
+end;
+
+procedure TDataModuleScript.dwsUnitEditorClassesIOTAEditorServices60MethodsGetKeyboardServicesEval(
+  Info: TProgramInfo; ExtObject: TObject);
+var
+  KeyboardServices: IOTAKeyboardServices;
+  Container: TIUnknownContainer;
+begin
+  // get keyboard service
+  KeyboardServices := (BorlandIDEServices as IOTAEditorServices).KeyboardServices;
+
+  // create interface container (ugly hack to store the interface)
+  Container := TIUnknownContainer.Create;
+  Container.Intf := KeyboardServices;
+
+  // create script-side class "containing" the interface
+  Info.ResultAsVariant := Info.Vars['IOTAKeyboardServices'].GetConstructor('Create', Container).Call.Value;
+end;
+
+procedure TDataModuleScript.dwsUnitEditorClassesIOTAEditorServices60MethodsGetTopBufferEval(
+  Info: TProgramInfo; ExtObject: TObject);
+var
+  EditBuffer: IOTAEditBuffer;
+  Container: TIUnknownContainer;
+begin
+  // get buffer
+  EditBuffer := (BorlandIDEServices as IOTAEditorServices).TopBuffer;
+
+  // create interface container (ugly hack to store the interface)
+  Container := TIUnknownContainer.Create;
+  Container.Intf := EditBuffer;
+
+  // create script-side class "containing" the interface
+  Info.ResultAsVariant := Info.Vars['IOTAEditBuffer'].GetConstructor('Create', Container).Call.Value;
+end;
+
+procedure TDataModuleScript.dwsUnitEditorClassesIOTAEditorServices60MethodsGetTopViewEval(
+  Info: TProgramInfo; ExtObject: TObject);
+var
+  EditView: IOTAEditView;
+  Container: TIUnknownContainer;
+begin
+  // get edit view
+  EditView := (BorlandIDEServices as IOTAEditorServices).TopView;
+
+  // create interface container (ugly hack to store the interface)
+  Container := TIUnknownContainer.Create;
+  Container.Intf := EditView;
+
+  // create script-side class "containing" the interface
+  Info.ResultAsVariant := Info.Vars['IOTAEditView'].GetConstructor('Create', Container).Call.Value;
+end;
+
+procedure TDataModuleScript.dwsUnitEditorClassesIOTAEditorServices70MethodsAddEditOptionsEval(
+  Info: TProgramInfo; ExtObject: TObject);
+var
+  EditOptions: IOTAEditOptions;
+  Container: TIUnknownContainer;
+begin
+  // adds a new IOTAEditOptions for IDString or return, if already existing
+  EditOptions := (BorlandIDEServices as IOTAEditorServices).AddEditOptions(Info.ParamAsString[0]);
+
+  // create interface container (ugly hack to store the interface)
+  Container := TIUnknownContainer.Create;
+  Container.Intf := EditOptions;
+
+  // create script-side class "containing" the interface
+  Info.ResultAsVariant := Info.Vars['IOTAEditView'].GetConstructor('Create', Container).Call.Value;
+end;
+
+procedure TDataModuleScript.dwsUnitEditorClassesIOTAEditorServices70MethodsDeleteEditOptionsEval(
+  Info: TProgramInfo; ExtObject: TObject);
+begin
+  (BorlandIDEServices as IOTAEditorServices).DeleteEditOptions(Info.ParamAsString[0]);
+end;
+
+procedure TDataModuleScript.dwsUnitEditorClassesIOTAEditorServices70MethodsGetEditOptionsCountEval(
+  Info: TProgramInfo; ExtObject: TObject);
+begin
+  Info.ResultAsInteger := (BorlandIDEServices as IOTAEditorServices).EditOptionsCount;
+end;
+
+procedure TDataModuleScript.dwsUnitEditorClassesIOTAEditorServices70MethodsGetEditOptionsEval(
+  Info: TProgramInfo; ExtObject: TObject);
+var
+  EditOptions: IOTAEditOptions;
+  Container: TIUnknownContainer;
+begin
+  EditOptions := (BorlandIDEServices as IOTAEditorServices).GetEditOptions(Info.ParamAsString[0]);
+
+  // create interface container (ugly hack to store the interface)
+  Container := TIUnknownContainer.Create;
+  Container.Intf := EditOptions;
+
+  // create script-side class "containing" the interface
+  Info.ResultAsVariant := Info.Vars['IOTAEditView'].GetConstructor('Create', Container).Call.Value;
+end;
+
+procedure TDataModuleScript.dwsUnitEditorClassesIOTAEditorServices70MethodsGetEditOptionsForFileEval(
+  Info: TProgramInfo; ExtObject: TObject);
+var
+  EditOptions: IOTAEditOptions;
+begin
+  EditOptions := (BorlandIDEServices as IOTAEditorServices).GetEditOptionsForFile(Info.ParamAsString[0]);
+  Info.ResultAsVariant := Info.Vars['IOTAEditView'].GetConstructor('Create', nil).Call.Value;
+end;
+
+procedure TDataModuleScript.dwsUnitEditorClassesIOTAEditorServices70MethodsGetEditOptionsIndexEval(
+  Info: TProgramInfo; ExtObject: TObject);
+var
+  EditOptions: IOTAEditOptions;
+begin
+  EditOptions := (BorlandIDEServices as IOTAEditorServices).EditorOptions[Info.ParamAsInteger[0]];
+  Info.ResultAsVariant := Info.Vars['IOTAEditView'].GetConstructor('Create', nil).Call.Value;
+end;
+
+procedure TDataModuleScript.dwsUnitEditorClassesIOTAEditorServicesMethodsGetEditOptionsIDStringEval(
+  Info: TProgramInfo; ExtObject: TObject);
+var
+  EditorServices: IOTAEditorServices;
+begin
+  EditorServices := BorlandIDEServices as IOTAEditorServices;
+  Info.ResultAsString := EditorServices.GetEditOptionsIDString(Info.ParamAsString[0]);
 end;
 
 procedure TDataModuleScript.dwsUnitEditorFunctionsCenterCursorEval(
