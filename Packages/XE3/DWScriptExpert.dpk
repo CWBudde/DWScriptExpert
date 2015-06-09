@@ -26,6 +26,7 @@ package DWScriptExpert;
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
 {$DESCRIPTION 'DWScript Expert'}
+{$LIBSUFFIX 'XE3'}
 {$IMPLICITBUILD ON}
 
 requires
@@ -41,8 +42,8 @@ requires
   vclimg;
 
 contains
-  DWScriptExpertForm in '..\Source\DWScriptExpertForm.pas' {DWScriptExpertDockForm},
-  DWScriptExpertModule in '..\Source\DWScriptExpertModule.pas' {DataModuleScript: TDataModule},
-  DWScriptExpertAbout in '..\Source\DWScriptExpertAbout.pas' {FormAbout};
+  DWScriptExpertForm in '..\..\Source\DWScriptExpertForm.pas' {DWScriptExpertDockForm},
+  DWScriptExpertModule in '..\..\Source\DWScriptExpertModule.pas' {DataModuleScript: TDataModule},
+  DWScriptExpertAbout in '..\..\Source\DWScriptExpertAbout.pas' {FormAbout};
 
 end.
