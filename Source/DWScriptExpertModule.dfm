@@ -79,7 +79,7 @@ object DataModuleScript: TDataModuleScript
             Parameters = <
               item
                 Name = 'Key'
-                DataType = 'string'
+                DataType = 'TAttributeName'
                 IsVarParam = True
                 IsWritable = False
               end>
@@ -92,7 +92,7 @@ object DataModuleScript: TDataModuleScript
             Parameters = <
               item
                 Name = 'Key'
-                DataType = 'string'
+                DataType = 'TAttributeName'
                 IsVarParam = True
                 IsWritable = False
               end>
@@ -107,7 +107,7 @@ object DataModuleScript: TDataModuleScript
             Kind = mkFunction
           end
           item
-            Name = 'GetAttributeKeyCount'
+            Name = 'GetAttributeCount'
             ResultType = 'Integer'
             OnEval = dwsTSyntaxNodeMethodsGetAttributeCountEval
             Kind = mkFunction
@@ -119,7 +119,7 @@ object DataModuleScript: TDataModuleScript
                 Name = 'Index'
                 DataType = 'Integer'
               end>
-            ResultType = 'String'
+            ResultType = 'TAttributeName'
             OnEval = dwsTSyntaxNodeMethodsGetAttributeKeyEval
             Visibility = cvPrivate
             Kind = mkFunction
@@ -139,6 +139,12 @@ object DataModuleScript: TDataModuleScript
           item
             Name = 'GetParentNode'
             ResultType = 'TSyntaxNode'
+            Kind = mkFunction
+          end
+          item
+            Name = 'GetFileName'
+            ResultType = 'String'
+            OnEval = dwsUnitDelphiASTClassesTSyntaxNodeMethodsGetFileNameEval
             Kind = mkFunction
           end>
         Properties = <
@@ -168,9 +174,9 @@ object DataModuleScript: TDataModuleScript
             ReadAccess = 'GetHasAttributes'
           end
           item
-            Name = 'AttributeKeyCount'
+            Name = 'AttributeCount'
             DataType = 'Integer'
-            ReadAccess = 'GetAttributeKeyCount'
+            ReadAccess = 'GetAttributeCount'
           end
           item
             Name = 'ChildNodeCount'
@@ -201,10 +207,16 @@ object DataModuleScript: TDataModuleScript
             Name = 'ParentNode'
             DataType = 'TSyntaxNode'
             ReadAccess = 'GetParentNode'
+          end
+          item
+            Name = 'FileName'
+            DataType = 'String'
+            ReadAccess = 'GetFileName'
           end>
       end
       item
         Name = 'TCompoundSyntaxNode'
+        Ancestor = 'TSyntaxNode'
         Methods = <
           item
             Name = 'GetEndCol'
@@ -230,6 +242,62 @@ object DataModuleScript: TDataModuleScript
             Name = 'EndLine'
             DataType = 'Integer'
             ReadAccess = 'GetEndLine'
+          end>
+      end
+      item
+        Name = 'TValuedSyntaxNode'
+        Ancestor = 'TSyntaxNode'
+        Methods = <
+          item
+            Name = 'GetValue'
+            ResultType = 'String'
+            OnEval = dwsUnitDelphiASTClassesTValuedSyntaxNodeMethodsGetValueEval
+            Kind = mkFunction
+          end
+          item
+            Name = 'SetValue'
+            Parameters = <
+              item
+                Name = 'Value'
+                DataType = 'String'
+              end>
+            OnEval = dwsUnitDelphiASTClassesTValuedSyntaxNodeMethodsSetValueEval
+            Kind = mkProcedure
+          end>
+        Properties = <
+          item
+            Name = 'Value'
+            DataType = 'String'
+            ReadAccess = 'GetValue'
+            WriteAccess = 'SetValue'
+          end>
+      end
+      item
+        Name = 'TCommentNode'
+        Ancestor = 'TSyntaxNode'
+        Methods = <
+          item
+            Name = 'GetText'
+            ResultType = 'String'
+            OnEval = dwsUnitDelphiASTClassesTCommentNodeMethodsGetTextEval
+            Kind = mkFunction
+          end
+          item
+            Name = 'SetText'
+            Parameters = <
+              item
+                Name = 'Text'
+                DataType = 'String'
+              end>
+            OnEval = dwsUnitDelphiASTClassesTCommentNodeMethodsSetTextEval
+            Kind = mkProcedure
+          end>
+        Properties = <
+          item
+            Name = 'Text'
+            DataType = 'String'
+            ReadAccess = 'GetText'
+            WriteAccess = 'SetText'
           end>
       end>
     Enumerations = <
@@ -580,6 +648,46 @@ object DataModuleScript: TDataModuleScript
           end
           item
             Name = 'ntWrite'
+          end>
+      end
+      item
+        Name = 'TAttributeName'
+        Elements = <
+          item
+            Name = 'anType'
+          end
+          item
+            Name = 'anClass'
+          end
+          item
+            Name = 'anForwarded'
+          end
+          item
+            Name = 'anKind'
+          end
+          item
+            Name = 'anName'
+          end
+          item
+            Name = 'anVisibility'
+          end
+          item
+            Name = 'anCallingConvention'
+          end
+          item
+            Name = 'anPath'
+          end
+          item
+            Name = 'anMethodBinding'
+          end
+          item
+            Name = 'anReintroduce'
+          end
+          item
+            Name = 'anOverload'
+          end
+          item
+            Name = 'anAbstract'
           end>
       end>
     Functions = <

@@ -98,6 +98,16 @@ type
       Info: TProgramInfo; ExtObject: TObject);
     procedure dwsUnitEditorClassesIOTAEditorServices60MethodsGetEditOptionsEval(
       Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitDelphiASTClassesTSyntaxNodeMethodsGetFileNameEval(
+      Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitDelphiASTClassesTValuedSyntaxNodeMethodsGetValueEval(
+      Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitDelphiASTClassesTValuedSyntaxNodeMethodsSetValueEval(
+      Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitDelphiASTClassesTCommentNodeMethodsGetTextEval(
+      Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitDelphiASTClassesTCommentNodeMethodsSetTextEval(
+      Info: TProgramInfo; ExtObject: TObject);
   private
     FUnitRTTI: TdwsUnit;
     {$IFDEF UseCryptoModule}
@@ -221,28 +231,28 @@ procedure TDataModuleScript.dwsTSyntaxNodeMethodsGetAttributeCountEval(
   Info: TProgramInfo; ExtObject: TObject);
 begin
   Assert(ExtObject is TSyntaxNode);
-  Info.ResultAsInteger := TSyntaxNode(ExtObject).Attributes.Keys.Count;
+  Info.ResultAsInteger := Length(TSyntaxNode(ExtObject).Attributes);
 end;
 
 procedure TDataModuleScript.dwsTSyntaxNodeMethodsGetAttributeEval(
   Info: TProgramInfo; ExtObject: TObject);
 begin
   Assert(ExtObject is TSyntaxNode);
-  Info.ResultAsString := TSyntaxNode(ExtObject).GetAttribute(Info.ParamAsString[0]);
+  Info.ResultAsString := TSyntaxNode(ExtObject).GetAttribute(TAttributeName(Info.ParamAsInteger[0]));
 end;
 
 procedure TDataModuleScript.dwsTSyntaxNodeMethodsGetAttributeKeyEval(
   Info: TProgramInfo; ExtObject: TObject);
 begin
   Assert(ExtObject is TSyntaxNode);
-  Info.ResultAsString := TSyntaxNode(ExtObject).Attributes.Keys.ToArray[Info.ParamAsInteger[0]];
+  Info.ResultAsInteger := Integer(TSyntaxNode(ExtObject).Attributes[Info.ParamAsInteger[0]].Key);
 end;
 
 procedure TDataModuleScript.dwsTSyntaxNodeMethodsGetChildCountEval(
   Info: TProgramInfo; ExtObject: TObject);
 begin
   Assert(ExtObject is TSyntaxNode);
-  Info.ResultAsInteger := TSyntaxNode(ExtObject).ChildNodes.Count;
+  Info.ResultAsInteger := Length(TSyntaxNode(ExtObject).ChildNodes);
 end;
 
 procedure TDataModuleScript.dwsTSyntaxNodeMethodsGetChildNodeEval(
@@ -252,7 +262,7 @@ var
   ChildNodeObj: IScriptObj;
 begin
   Assert(ExtObject is TSyntaxNode);
-  ChildNode := TSyntaxNode(ExtObject).ChildNodes.Items[Info.ParamAsInteger[0]];
+  ChildNode := TSyntaxNode(ExtObject).ChildNodes[Info.ParamAsInteger[0]];
   if Assigned(ChildNode) then
   begin
     Info.ResultAsVariant := Info.Vars['TSyntaxNode'].GetConstructor('Create', ChildNode).Call.Value;
@@ -264,18 +274,32 @@ begin
   end;
 end;
 
+procedure TDataModuleScript.dwsUnitDelphiASTClassesTCommentNodeMethodsGetTextEval(
+  Info: TProgramInfo; ExtObject: TObject);
+begin
+  Assert(ExtObject is TCommentNode);
+  Info.ResultAsString := TCommentNode(ExtObject).Text;
+end;
+
+procedure TDataModuleScript.dwsUnitDelphiASTClassesTCommentNodeMethodsSetTextEval(
+  Info: TProgramInfo; ExtObject: TObject);
+begin
+  Assert(ExtObject is TCommentNode);
+  TCommentNode(ExtObject).Text := Info.ParamAsString[0];
+end;
+
 procedure TDataModuleScript.dwsUnitDelphiASTClassesTCompoundSyntaxNodeMethodsGetEndColEval(
   Info: TProgramInfo; ExtObject: TObject);
 begin
   Assert(ExtObject is TCompoundSyntaxNode);
-  Info.ResultAsInteger := TCompoundSyntaxNode(ExtObject).Col;
+  Info.ResultAsInteger := TCompoundSyntaxNode(ExtObject).EndCol;
 end;
 
 procedure TDataModuleScript.dwsUnitDelphiASTClassesTCompoundSyntaxNodeMethodsGetEndLineEval(
   Info: TProgramInfo; ExtObject: TObject);
 begin
   Assert(ExtObject is TCompoundSyntaxNode);
-  Info.ResultAsInteger := TCompoundSyntaxNode(ExtObject).Col;
+  Info.ResultAsInteger := TCompoundSyntaxNode(ExtObject).EndLine;
 end;
 
 procedure TDataModuleScript.dwsUnitDelphiASTClassesTSyntaxNodeMethodsGetColEval(
@@ -283,6 +307,13 @@ procedure TDataModuleScript.dwsUnitDelphiASTClassesTSyntaxNodeMethodsGetColEval(
 begin
   Assert(ExtObject is TSyntaxNode);
   Info.ResultAsInteger := TSyntaxNode(ExtObject).Col;
+end;
+
+procedure TDataModuleScript.dwsUnitDelphiASTClassesTSyntaxNodeMethodsGetFileNameEval(
+  Info: TProgramInfo; ExtObject: TObject);
+begin
+  Assert(ExtObject is TSyntaxNode);
+  Info.ResultAsString := TSyntaxNode(ExtObject).FileName;
 end;
 
 procedure TDataModuleScript.dwsUnitDelphiASTClassesTSyntaxNodeMethodsGetHasAttributesEval(
@@ -313,11 +344,25 @@ begin
   Info.ResultAsInteger := Integer(TSyntaxNode(ExtObject).Typ);
 end;
 
+procedure TDataModuleScript.dwsUnitDelphiASTClassesTValuedSyntaxNodeMethodsGetValueEval(
+  Info: TProgramInfo; ExtObject: TObject);
+begin
+  Assert(ExtObject is TValuedSyntaxNode);
+  Info.ResultAsString := TValuedSyntaxNode(ExtObject).Value;
+end;
+
+procedure TDataModuleScript.dwsUnitDelphiASTClassesTValuedSyntaxNodeMethodsSetValueEval(
+  Info: TProgramInfo; ExtObject: TObject);
+begin
+  Assert(ExtObject is TValuedSyntaxNode);
+  TValuedSyntaxNode(ExtObject).Value := Info.ParamAsString[0];
+end;
+
 procedure TDataModuleScript.dwsTSyntaxNodeMethodsHasAttributeEval(
   Info: TProgramInfo; ExtObject: TObject);
 begin
   Assert(ExtObject is TSyntaxNode);
-  Info.ResultAsBoolean := TSyntaxNode(ExtObject).HasAttribute(Info.ParamAsString[0])
+  Info.ResultAsBoolean := TSyntaxNode(ExtObject).HasAttribute(TAttributeName(Info.ParamAsInteger[0]));
 end;
 
 procedure TDataModuleScript.dwsUnitDelphiASTFunctionsExportSyntaxTreeToXMLEval(
