@@ -9,7 +9,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   DockForm, StdCtrls, ExtCtrls, ComCtrls, SyncObjs, Menus, StdActns, ActnList,
-  ToolWin, ImgList,
+  ToolWin, ImgList, Actions,
 
   dwsComp, dwsExprs, dwsSymbols, dwsErrors, dwsSuggestions, dwsVCLGUIFunctions,
   dwsStrings, dwsUnitSymbols, dwsFunctions, dwsTokenizer,
