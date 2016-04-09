@@ -76,38 +76,22 @@ type
     procedure dwsUnitEditorFunctionsMoveOneWordLeftEval(info: TProgramInfo);
     procedure dwsUnitEditorFunctionsMoveOneWordRightEval(info: TProgramInfo);
     procedure dwsUnitEditorFunctionsInsertTextEval(info: TProgramInfo);
-    procedure dwsUnitEditorClassesIOTAEditorServicesMethodsGetEditOptionsIDStringEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsUnitEditorClassesIOTAEditorServices70MethodsGetEditOptionsCountEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsUnitEditorClassesIOTAEditorServices70MethodsGetEditOptionsIndexEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsUnitEditorClassesIOTAEditorServices70MethodsDeleteEditOptionsEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsUnitEditorClassesIOTAEditorServices70MethodsAddEditOptionsEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsUnitEditorClassesIOTAEditorServices70MethodsGetEditOptionsForFileEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsUnitEditorClassesIOTAEditorServices70MethodsGetEditOptionsEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsUnitEditorClassesIOTAEditorServices60MethodsGetTopViewEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsUnitEditorClassesIOTAEditorServices60MethodsGetTopBufferEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsUnitEditorClassesIOTAEditorServices60MethodsGetKeyboardServicesEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsUnitEditorClassesIOTAEditorServices60MethodsGetEditOptionsEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsUnitDelphiASTClassesTSyntaxNodeMethodsGetFileNameEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsUnitDelphiASTClassesTValuedSyntaxNodeMethodsGetValueEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsUnitDelphiASTClassesTValuedSyntaxNodeMethodsSetValueEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsUnitDelphiASTClassesTCommentNodeMethodsGetTextEval(
-      Info: TProgramInfo; ExtObject: TObject);
-    procedure dwsUnitDelphiASTClassesTCommentNodeMethodsSetTextEval(
-      Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorServicesMethodsGetEditOptionsIDStringEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorServices70MethodsGetEditOptionsCountEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorServices70MethodsGetEditOptionsIndexEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorServices70MethodsDeleteEditOptionsEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorServices70MethodsAddEditOptionsEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorServices70MethodsGetEditOptionsForFileEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorServices70MethodsGetEditOptionsEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorServices60MethodsGetTopViewEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorServices60MethodsGetTopBufferEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorServices60MethodsGetKeyboardServicesEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorServices60MethodsGetEditOptionsEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitDelphiASTClassesTSyntaxNodeMethodsGetFileNameEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitDelphiASTClassesTValuedSyntaxNodeMethodsGetValueEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitDelphiASTClassesTValuedSyntaxNodeMethodsSetValueEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitDelphiASTClassesTCommentNodeMethodsGetTextEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitDelphiASTClassesTCommentNodeMethodsSetTextEval(Info: TProgramInfo; ExtObject: TObject);
   private
     FUnitRTTI: TdwsUnit;
     {$IFDEF UseCryptoModule}

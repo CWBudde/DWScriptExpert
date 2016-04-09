@@ -189,29 +189,19 @@ type
     property CurrentFileName: TFileName read FCurrentFileName write SetCurrentFileName;
     property Modified: Boolean read FModified write SetModified;
   end;
-
-   TCustomMenuHandler = class(TObject)
-     procedure HandleClick(Sender: TObject);
-   end;
-
-procedure Register;
+  TDWScriptExpertDockFormClass = class of TDWScriptExpertDockForm;
 
 implementation
 
 {$R *.dfm}
 
 uses
-  Deskutil, ToolsAPI, Registry, dwsUtils, dwsXPlatform, DWScriptExpertAbout;
-
-var
-  GDockForm: TDWScriptExpertDockForm;
-  GViewScriptMenuItem: TMenuItem;
-  GSeparatorMenuItem: TMenuItem;
-  GCustomMenuHandler: TCustomMenuHandler;
+  Deskutil, ToolsAPI, Registry, dwsUtils, dwsXPlatform, DWScriptExpertWizard,
+  DWScriptExpertAbout;
 
 {$IFDEF WebUpdate}
 const
-  CWebUpdateUrl = 'http://www.savioursofsoul.de/Christian/WebUpdate/PascalPrimer/';
+  CWebUpdateUrl = 'http://www.savioursofsoul.de/Christian/WebUpdate/DWScriptExpert/';
 {$ENDIF}
 
 { TEditorFrameSynEditPlugin }
@@ -1241,110 +1231,5 @@ begin
   if Modified then
     Caption := Caption + ' *';
 end;
-
-
-
-{ TCustomMenuHandler }
-
-procedure TCustomMenuHandler.HandleClick(Sender: TObject);
-begin
-  GDockForm.Visible := not GDockForm.Visible;
-  GViewScriptMenuItem.Checked := GDockForm.Visible;
-end;
-
-
-procedure AddIDEMenu;
-var
-  NTAServices: INTAServices40;
-const
-  CItemName = 'DWScript Expert';
-begin
-  NTAServices := BorlandIDEServices as INTAServices40;
-
-  // avoid inserting twice
-  if NTAServices.MainMenu.Items[3].Find(CItemName) = nil then
-  begin
-    GCustomMenuHandler := TCustomMenuHandler.Create;
-
-    GSeparatorMenuItem := TMenuItem.Create(nil);
-    GSeparatorMenuItem.Caption := '-';
-    NTAServices.MainMenu.Items[3].Add(GSeparatorMenuItem);
-
-    GViewScriptMenuItem := TMenuItem.Create(nil);
-    GViewScriptMenuItem.Caption := CItemName;
-    GViewScriptMenuItem.OnClick := GCustomMenuHandler.HandleClick;
-    NTAServices.MainMenu.Items[3].Add(GViewScriptMenuItem);
-  end;
-end;
-
-procedure RemoveIDEMenu;
-var
-  NTAServices: INTAServices40;
-begin
-  if Assigned(GViewScriptMenuItem) then
-  begin
-    NTAServices := BorlandIDEServices as INTAServices40;
-    NTAServices.MainMenu.Items[3].Remove(GViewScriptMenuItem);
-    GViewScriptMenuItem.Free;
-  end;
-
-  if Assigned(GSeparatorMenuItem) then
-  begin
-    NTAServices := BorlandIDEServices as INTAServices40;
-    NTAServices.MainMenu.Items[3].Remove(GSeparatorMenuItem);
-    GSeparatorMenuItem.Free;
-  end;
-
-  if Assigned(GCustomMenuHandler) then
-    GCustomMenuHandler.Free;
-end;
-
-procedure CreateDockForm;
-begin
-  // Create the form
-  if GDockForm = nil then
-  begin
-    GDockForm := TDWScriptExpertDockForm.Create(nil);
-    GDockForm.Visible := True;
-    GViewScriptMenuItem.Checked := True;
-
-    // Register to save position with the IDE
-    RegisterDesktopFormClass(TDWScriptExpertDockForm, 'DWScriptExpertDockForm',
-      GDockForm.Name);
-    if (@RegisterFieldAddress <> nil) then
-      RegisterFieldAddress(GDockForm.Name, @GDockForm);
-  end;
-end;
-
-procedure DestroyDockForm;
-begin
-  if Assigned(GDockForm) then
-  begin
-    // Cleanup dockable form instance
-    if @UnregisterFieldAddress <> nil then
-      UnregisterFieldAddress(@GDockForm);
-    GDockForm.Free;
-  end;
-end;
-
-procedure Register;
-begin
-  AddIDEMenu;
-
-  // eventually destroy currently existing dock form
-  DestroyDockForm;
-
-  // create new dock form
-  CreateDockForm;
-end;
-
-initialization
-  GViewScriptMenuItem := nil;
-  GSeparatorMenuItem := nil;
-  GCustomMenuHandler := nil;
-
-finalization
-  RemoveIDEMenu;
-  DestroyDockForm;
 
 end.
