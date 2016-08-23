@@ -2806,6 +2806,751 @@ object DataModuleScript: TDataModuleScript
       end>
     Constants = <
       item
+        Name = 'utForm'
+        DataType = 'Integer'
+        Value = 0
+      end
+      item
+        Name = 'utDataModule'
+        DataType = 'Integer'
+        Value = 1
+      end
+      item
+        Name = 'utProjUnit'
+        DataType = 'Integer'
+        Value = 2
+      end
+      item
+        Name = 'utUnit'
+        DataType = 'Integer'
+        Value = 3
+      end
+      item
+        Name = 'utRc'
+        DataType = 'Integer'
+        Value = 4
+      end
+      item
+        Name = 'utAsm'
+        DataType = 'Integer'
+        Value = 5
+      end
+      item
+        Name = 'utDef'
+        DataType = 'Integer'
+        Value = 6
+      end
+      item
+        Name = 'utObj'
+        DataType = 'Integer'
+        Value = 7
+      end
+      item
+        Name = 'utRes'
+        DataType = 'Integer'
+        Value = 8
+      end
+      item
+        Name = 'utLib'
+        DataType = 'Integer'
+        Value = 9
+      end
+      item
+        Name = 'utTypeLib'
+        DataType = 'Integer'
+        Value = 10
+      end
+      item
+        Name = 'utPackageImport'
+        DataType = 'Integer'
+        Value = 11
+      end
+      item
+        Name = 'utFormResource'
+        DataType = 'Integer'
+        Value = 12
+      end
+      item
+        Name = 'utNoMake'
+        DataType = 'Integer'
+        Value = 13
+      end
+      item
+        Name = 'atWhiteSpace'
+        DataType = 'Integer'
+        Value = 0
+      end
+      item
+        Name = 'atComment'
+        DataType = 'Integer'
+        Value = 1
+      end
+      item
+        Name = 'atReservedWord'
+        DataType = 'Integer'
+        Value = 2
+      end
+      item
+        Name = 'atIdentifier'
+        DataType = 'Integer'
+        Value = 3
+      end
+      item
+        Name = 'atSymbol'
+        DataType = 'Integer'
+        Value = 4
+      end
+      item
+        Name = 'atString'
+        DataType = 'Integer'
+        Value = 5
+      end
+      item
+        Name = 'atNumber'
+        DataType = 'Integer'
+        Value = 6
+      end
+      item
+        Name = 'atFloat'
+        DataType = 'Integer'
+        Value = 7
+      end
+      item
+        Name = 'atOctal'
+        DataType = 'Integer'
+        Value = 8
+      end
+      item
+        Name = 'atHex'
+        DataType = 'Integer'
+        Value = 9
+      end
+      item
+        Name = 'atCharacter'
+        DataType = 'Integer'
+        Value = 10
+      end
+      item
+        Name = 'atPreproc'
+        DataType = 'Integer'
+        Value = 11
+      end
+      item
+        Name = 'atIllegal'
+        DataType = 'Integer'
+        Value = 12
+      end
+      item
+        Name = 'atAssembler'
+        DataType = 'Integer'
+        Value = 13
+      end
+      item
+        Name = 'SyntaxOff'
+        DataType = 'Integer'
+        Value = 14
+      end
+      item
+        Name = 'MarkedBlock'
+        DataType = 'Integer'
+        Value = 15
+      end
+      item
+        Name = 'SearchMatch'
+        DataType = 'Integer'
+        Value = 16
+      end
+      item
+        Name = 'atHotLink'
+        DataType = 'Integer'
+        Value = 17
+      end
+      item
+        Name = 'atTags'
+        DataType = 'Integer'
+        Value = 20
+      end
+      item
+        Name = 'atAttrNames'
+        DataType = 'Integer'
+        Value = 21
+      end
+      item
+        Name = 'atAttrValues'
+        DataType = 'Integer'
+        Value = 22
+      end
+      item
+        Name = 'atScripts'
+        DataType = 'Integer'
+        Value = 23
+      end
+      item
+        Name = 'RightMargin'
+        DataType = 'Integer'
+        Value = 37
+      end
+      item
+        Name = 'lfCurrentEIP'
+        DataType = 'Integer'
+        Value = 1
+      end
+      item
+        Name = 'lfBreakpointEnabled'
+        DataType = 'Integer'
+        Value = 2
+      end
+      item
+        Name = 'lfBreakpointDisabled'
+        DataType = 'Integer'
+        Value = 4
+      end
+      item
+        Name = 'lfBreakpointInvalid'
+        DataType = 'Integer'
+        Value = 8
+      end
+      item
+        Name = 'lfErrorLine'
+        DataType = 'Integer'
+        Value = 16
+      end
+      item
+        Name = 'lfBreakpointVerified'
+        DataType = 'Integer'
+        Value = 32
+      end
+      item
+        Name = 'lfBackgroundBkpt'
+        DataType = 'Integer'
+        Value = 64
+      end
+      item
+        Name = 'lfBackgroupEIP'
+        DataType = 'Integer'
+        Value = 128
+      end
+      item
+        Name = 'rkRegion'
+        DataType = 'Integer'
+        Value = 0
+      end
+      item
+        Name = 'rkIf'
+        DataType = 'Integer'
+        Value = 1
+      end
+      item
+        Name = 'rkNameSpace'
+        DataType = 'Integer'
+        Value = 2
+      end
+      item
+        Name = 'rkType'
+        DataType = 'Integer'
+        Value = 3
+      end
+      item
+        Name = 'rkMethod'
+        DataType = 'Integer'
+        Value = 4
+      end
+      item
+        Name = 'rkNestedMethod'
+        DataType = 'Integer'
+        Value = 5
+      end
+      item
+        Name = 'rkGlobal'
+        DataType = 'Integer'
+        Value = 6
+      end
+      item
+        Name = 'rkDocumentation'
+        DataType = 'Integer'
+        Value = 7
+      end
+      item
+        Name = 'mcGetFindString'
+        DataType = 'String'
+        Value = 'GetFindString'
+      end
+      item
+        Name = 'mcReplace'
+        DataType = 'String'
+        Value = 'Replace'
+      end
+      item
+        Name = 'mcRepeatSearch'
+        DataType = 'String'
+        Value = 'RepeatSearch'
+      end
+      item
+        Name = 'mcIncrementalSearch'
+        DataType = 'String'
+        Value = 'IncrementalSearch'
+      end
+      item
+        Name = 'mcGotoLine'
+        DataType = 'String'
+        Value = 'GotoLine'
+      end
+      item
+        Name = 'mcClipCut'
+        DataType = 'String'
+        Value = 'ClipCut'
+      end
+      item
+        Name = 'mcClipCopy'
+        DataType = 'String'
+        Value = 'ClipCopy'
+      end
+      item
+        Name = 'mcClipPaste'
+        DataType = 'String'
+        Value = 'ClipPaste'
+      end
+      item
+        Name = 'mcClipClear'
+        DataType = 'String'
+        Value = 'ClipClear'
+      end
+      item
+        Name = 'mcHelpKeywordSearch'
+        DataType = 'String'
+        Value = 'HelpKeywordSearch'
+      end
+      item
+        Name = 'mcOpenFileAtCursor'
+        DataType = 'String'
+        Value = 'OpenFileAtCursor'
+      end
+      item
+        Name = 'mcToggleBreakpoint'
+        DataType = 'String'
+        Value = 'ToggleBreakpoint'
+      end
+      item
+        Name = 'mcRunToHere'
+        DataType = 'String'
+        Value = 'RunToHere'
+      end
+      item
+        Name = 'mcUndo'
+        DataType = 'String'
+        Value = 'Undo'
+      end
+      item
+        Name = 'mcRedo'
+        DataType = 'String'
+        Value = 'Redo'
+      end
+      item
+        Name = 'mcModify'
+        DataType = 'String'
+        Value = 'Modify'
+      end
+      item
+        Name = 'mcAddWatchAtCursor'
+        DataType = 'String'
+        Value = 'AddWatchAtCursor'
+      end
+      item
+        Name = 'mcInspectAtCursor'
+        DataType = 'String'
+        Value = 'InspectAtCursor'
+      end
+      item
+        Name = 'mcSetMark0'
+        DataType = 'String'
+        Value = 'setMark0'
+      end
+      item
+        Name = 'mcSetMark1'
+        DataType = 'String'
+        Value = 'setMark1'
+      end
+      item
+        Name = 'mcSetMark2'
+        DataType = 'String'
+        Value = 'setMark2'
+      end
+      item
+        Name = 'mcSetMark3'
+        DataType = 'String'
+        Value = 'setMark3'
+      end
+      item
+        Name = 'mcSetMark4'
+        DataType = 'String'
+        Value = 'setMark4'
+      end
+      item
+        Name = 'mcSetMark5'
+        DataType = 'String'
+        Value = 'setMark5'
+      end
+      item
+        Name = 'mcSetMark6'
+        DataType = 'String'
+        Value = 'setMark6'
+      end
+      item
+        Name = 'mcSetMark7'
+        DataType = 'String'
+        Value = 'setMark7'
+      end
+      item
+        Name = 'mcSetMark8'
+        DataType = 'String'
+        Value = 'setMark8'
+      end
+      item
+        Name = 'mcSetMark9'
+        DataType = 'String'
+        Value = 'setMark9'
+      end
+      item
+        Name = 'mcMoveToMark0'
+        DataType = 'String'
+        Value = 'moveToMark0'
+      end
+      item
+        Name = 'mcMoveToMark1'
+        DataType = 'String'
+        Value = 'moveToMark1'
+      end
+      item
+        Name = 'mcMoveToMark2'
+        DataType = 'String'
+        Value = 'moveToMark2'
+      end
+      item
+        Name = 'mcMoveToMark3'
+        DataType = 'String'
+        Value = 'moveToMark3'
+      end
+      item
+        Name = 'mcMoveToMark4'
+        DataType = 'String'
+        Value = 'moveToMark4'
+      end
+      item
+        Name = 'mcMoveToMark5'
+        DataType = 'String'
+        Value = 'moveToMark5'
+      end
+      item
+        Name = 'mcMoveToMark6'
+        DataType = 'String'
+        Value = 'moveToMark6'
+      end
+      item
+        Name = 'mcMoveToMark7'
+        DataType = 'String'
+        Value = 'moveToMark7'
+      end
+      item
+        Name = 'mcMoveToMark8'
+        DataType = 'String'
+        Value = 'moveToMark8'
+      end
+      item
+        Name = 'mcMoveToMark9'
+        DataType = 'String'
+        Value = 'moveToMark9'
+      end
+      item
+        Name = 'sEditor'
+        DataType = 'String'
+        Value = 'editor'
+      end
+      item
+        Name = 'dVCL'
+        DataType = 'String'
+        Value = 'dfm'
+      end
+      item
+        Name = 'dCLX'
+        DataType = 'String'
+        Value = 'xfm'
+      end
+      item
+        Name = 'dFMX'
+        DataType = 'String'
+        Value = 'fmx'
+      end
+      item
+        Name = 'dFMI'
+        DataType = 'String'
+        Value = 'fmi'
+      end
+      item
+        Name = 'dVCLNet'
+        DataType = 'String'
+        Value = 'nfm'
+      end
+      item
+        Name = 'dDotNet'
+        DataType = 'String'
+        Value = '.NET'
+      end
+      item
+        Name = 'dHTML'
+        DataType = 'String'
+        Value = 'HTML'
+      end
+      item
+        Name = 'dAny'
+        DataType = 'String'
+        Value = 'Any'
+      end
+      item
+        Name = 'WizardEntryPoint'
+        DataType = 'String'
+        Value = 'INITWIZARD0001'
+      end
+      item
+        Name = 'isWizards'
+        DataType = 'String'
+        Value = 'Wizards'
+      end
+      item
+        Name = 'sCustomToolBar'
+        DataType = 'String'
+        Value = 'CustomToolBar'
+      end
+      item
+        Name = 'sStandardToolBar'
+        DataType = 'String'
+        Value = 'StandardToolBar'
+      end
+      item
+        Name = 'sDebugToolBar'
+        DataType = 'String'
+        Value = 'DebugToolBar'
+      end
+      item
+        Name = 'sViewToolBar'
+        DataType = 'String'
+        Value = 'ViewToolBar'
+      end
+      item
+        Name = 'sDesktopToolBar'
+        DataType = 'String'
+        Value = 'DesktopToolBar'
+      end
+      item
+        Name = 'sInternetToolBar'
+        DataType = 'String'
+        Value = 'InternetToolBar'
+      end
+      item
+        Name = 'sCORBAToolBar'
+        DataType = 'String'
+        Value = 'CORBAToolBar'
+      end
+      item
+        Name = 'sAlignToolbar'
+        DataType = 'String'
+        Value = 'AlignToolbar'
+      end
+      item
+        Name = 'sBrowserToolbar'
+        DataType = 'String'
+        Value = 'BrowserToolbar'
+      end
+      item
+        Name = 'sHTMLDesignToolbar'
+        DataType = 'String'
+        Value = 'HTMLDesignToolbar'
+      end
+      item
+        Name = 'sHTMLFormatToolbar'
+        DataType = 'String'
+        Value = 'HTMLFormatToolbar'
+      end
+      item
+        Name = 'sHTMLTableToolbar'
+        DataType = 'String'
+        Value = 'HTMLTableToolbar'
+      end
+      item
+        Name = 'sPersonalityToolBar'
+        DataType = 'String'
+        Value = 'PersonalityToolBar'
+      end
+      item
+        Name = 'sPositionToolbar'
+        DataType = 'String'
+        Value = 'PositionToolbar'
+      end
+      item
+        Name = 'sSpacingToolbar'
+        DataType = 'String'
+        Value = 'SpacingToolbar'
+      end
+      item
+        Name = 'sIDEInsightToolbar'
+        DataType = 'String'
+        Value = 'IDEInsightToolBar'
+      end
+      item
+        Name = 'sPlatformDeviceToolbar'
+        DataType = 'String'
+        Value = 'PlatformDeviceToolBar'
+      end
+      item
+        Name = 'sApplication'
+        DataType = 'String'
+        Value = 'Application'
+      end
+      item
+        Name = 'sLibrary'
+        DataType = 'String'
+        Value = 'Library'
+      end
+      item
+        Name = 'sConsole'
+        DataType = 'String'
+        Value = 'Console'
+      end
+      item
+        Name = 'sPackage'
+        DataType = 'String'
+        Value = 'Package'
+      end
+      item
+        Name = 'sStaticLibrary'
+        DataType = 'String'
+        Value = 'StaticLibrary'
+      end
+      item
+        Name = 'sOptionSet'
+        DataType = 'String'
+        Value = 'OptionSet'
+      end
+      item
+        Name = 'sFrameworkTypeNone'
+        DataType = 'String'
+        Value = 'None'
+      end
+      item
+        Name = 'sFrameworkTypeVCL'
+        DataType = 'String'
+        Value = 'VCL'
+      end
+      item
+        Name = 'sFrameworkTypeFMX'
+        DataType = 'String'
+        Value = 'FMX'
+      end
+      item
+        Name = 'sFrameworkTypeFMI'
+        DataType = 'String'
+        Value = 'FMI'
+      end
+      item
+        Name = 'sFrameworkTypeDotNet'
+        DataType = 'String'
+        Value = 'DotNet'
+      end
+      item
+        Name = 'sUnit'
+        DataType = 'String'
+        Value = 'Unit'
+      end
+      item
+        Name = 'sForm'
+        DataType = 'String'
+        Value = 'Form'
+      end
+      item
+        Name = 'sText'
+        DataType = 'String'
+        Value = 'Text'
+      end
+      item
+        Name = 'sbaPCHCompile'
+        DataType = 'String'
+        Value = 'PCHCompile'
+      end
+      item
+        Name = 'sAssembly'
+        DataType = 'String'
+        Value = 'Assembly'
+      end
+      item
+        Name = 'sUserControl'
+        DataType = 'String'
+        Value = 'UserControl'
+      end
+      item
+        Name = 'sClass'
+        DataType = 'String'
+        Value = 'Class'
+      end
+      item
+        Name = 'sWinForm'
+        DataType = 'String'
+        Value = 'WinForm'
+      end
+      item
+        Name = 'sCppConsoleExe'
+        DataType = 'String'
+        Value = 'CppConsoleApplication'
+      end
+      item
+        Name = 'sCppGuiApplication'
+        DataType = 'String'
+        Value = 'CppGuiApplication'
+      end
+      item
+        Name = 'sCppVCLApplication'
+        DataType = 'String'
+        Value = 'CppVCLApplication'
+      end
+      item
+        Name = 'sCppDynamicLibrary'
+        DataType = 'String'
+        Value = 'CppDynamicLibrary'
+      end
+      item
+        Name = 'sCppPackage'
+        DataType = 'String'
+        Value = 'CppPackage'
+      end
+      item
+        Name = 'sCppStaticLibrary'
+        DataType = 'String'
+        Value = 'CppStaticLibrary'
+      end
+      item
+        Name = 'sCppManagedConsoleExe'
+        DataType = 'String'
+        Value = 'CppManagedConsoleApp'
+      end
+      item
+        Name = 'sCppManagedDll'
+        DataType = 'String'
+        Value = 'CppManagedDynamicLibrary'
+      end
+      item
+        Name = 'sClxGuiApp'
+        DataType = 'String'
+        Value = 'ClxGuiApplication'
+      end
+      item
+        Name = 'sFmxGuiApp'
+        DataType = 'String'
+        Value = 'FmxGuiApplication'
+      end
+      item
+        Name = 'sFmiGuiApp'
+        DataType = 'String'
+        Value = 'FmiGuiApplication'
+      end
+      item
         Name = 'mmSkipWord'
         DataType = 'Integer'
         Value = '0'
@@ -2844,8 +3589,545 @@ object DataModuleScript: TDataModuleScript
         Name = 'mmSkipStream'
         DataType = 'Integer'
         Value = 32
+      end
+      item
+        Name = 'csCodelist'
+        DataType = 'Integer'
+        Value = 1
+      end
+      item
+        Name = 'csParamList'
+        DataType = 'Integer'
+        Value = 2
+      end
+      item
+        Name = 'csManual'
+        DataType = 'Integer'
+        Value = 128
+      end
+      item
+        Name = 'kfImplicitShift'
+        DataType = 'Integer'
+        Value = 1
+      end
+      item
+        Name = 'kfImplicitModifier'
+        DataType = 'Integer'
+        Value = 2
+      end
+      item
+        Name = 'kfImplicitKeypad'
+        DataType = 'Integer'
+        Value = 4
+      end
+      item
+        Name = 'rfBackward'
+        DataType = 'Integer'
+        Value = 256
+      end
+      item
+        Name = 'rfInvertLegalChars'
+        DataType = 'Integer'
+        Value = 4096
+      end
+      item
+        Name = 'rfIncludeUpperAlphaChars'
+        DataType = 'Integer'
+        Value = 1
+      end
+      item
+        Name = 'rfIncludeLowerAlphaChars'
+        DataType = 'Integer'
+        Value = 2
+      end
+      item
+        Name = 'rfIncludeAlphaChars'
+        DataType = 'Integer'
+        Value = 3
+      end
+      item
+        Name = 'rfIncludeNumericChars'
+        DataType = 'Integer'
+        Value = 4
+      end
+      item
+        Name = 'rfIncludeSpecialChars'
+        DataType = 'Integer'
+        Value = 8
+      end
+      item
+        Name = 'omtForm'
+        DataType = 'Integer'
+        Value = 0
+      end
+      item
+        Name = 'omtDataModule'
+        DataType = 'Integer'
+        Value = 1
+      end
+      item
+        Name = 'omtProjUnit'
+        DataType = 'Integer'
+        Value = 2
+      end
+      item
+        Name = 'omtUnit'
+        DataType = 'Integer'
+        Value = 3
+      end
+      item
+        Name = 'omtRc'
+        DataType = 'Integer'
+        Value = 4
+      end
+      item
+        Name = 'omtAsm'
+        DataType = 'Integer'
+        Value = 5
+      end
+      item
+        Name = 'omtDef'
+        DataType = 'Integer'
+        Value = 6
+      end
+      item
+        Name = 'omtObj'
+        DataType = 'Integer'
+        Value = 7
+      end
+      item
+        Name = 'omtRes'
+        DataType = 'Integer'
+        Value = 8
+      end
+      item
+        Name = 'omtLib'
+        DataType = 'Integer'
+        Value = 9
+      end
+      item
+        Name = 'omtTypeLib'
+        DataType = 'Integer'
+        Value = 10
+      end
+      item
+        Name = 'omtPackageImport'
+        DataType = 'Integer'
+        Value = 11
+      end
+      item
+        Name = 'omtFormResource'
+        DataType = 'Integer'
+        Value = 12
+      end
+      item
+        Name = 'omtCustom'
+        DataType = 'Integer'
+        Value = 13
+      end
+      item
+        Name = 'omtIDL'
+        DataType = 'Integer'
+        Value = 14
+      end
+      item
+        Name = 'sNonePersonality'
+        DataType = 'String'
+        Value = 'None.Personality'
+      end
+      item
+        Name = 'sDefaultPersonality'
+        DataType = 'String'
+        Value = 'Default.Personality'
+      end
+      item
+        Name = 'sDelphiPersonality'
+        DataType = 'String'
+        Value = 'Delphi.Personality'
+      end
+      item
+        Name = 'sDelphiDotNetPersonality'
+        DataType = 'String'
+        Value = 'DelphiDotNet.Personality'
+      end
+      item
+        Name = 'sCBuilderPersonality'
+        DataType = 'String'
+        Value = 'CPlusPlusBuilder.Personality'
+      end
+      item
+        Name = 'sCSharpPersonality'
+        DataType = 'String'
+        Value = 'CSharp.Personality'
+      end
+      item
+        Name = 'sVBPersonality'
+        DataType = 'String'
+        Value = 'VB.Personality'
+      end
+      item
+        Name = 'sDesignPersonality'
+        DataType = 'String'
+        Value = 'Design.Personality'
+      end
+      item
+        Name = 'sGenericPersonality'
+        DataType = 'String'
+        Value = 'Generic.Personality'
+      end
+      item
+        Name = 'sCategoryRoot'
+        DataType = 'String'
+        Value = 'Borland.Root'
+      end
+      item
+        Name = 'sCategoryGalileoOther'
+        DataType = 'String'
+        Value = 'Borland.Galileo.Other'
+      end
+      item
+        Name = 'sCategoryDelphiNew'
+        DataType = 'String'
+        Value = 'Borland.Delphi.New'
+      end
+      item
+        Name = 'sCategoryDelphiNewFiles'
+        DataType = 'String'
+        Value = 'Borland.Delphi.NewFiles'
+      end
+      item
+        Name = 'sCategoryDelphiDotNetNew'
+        DataType = 'String'
+        Value = 'Borland.Delphi.NET.New'
+      end
+      item
+        Name = 'sCategoryDelphiDotNetNewFiles'
+        DataType = 'String'
+        Value = 'Borland.Delphi.NET.NewFiles'
+      end
+      item
+        Name = 'sCategoryCBuilderNew'
+        DataType = 'String'
+        Value = 'Borland.CBuilder.New'
+      end
+      item
+        Name = 'sCategoryCBuilderNewFiles'
+        DataType = 'String'
+        Value = 'Borland.CBuilder.NewFiles'
+      end
+      item
+        Name = 'sCategoryCurrentProject'
+        DataType = 'String'
+        Value = 'Borland.CurrentProject'
+      end
+      item
+        Name = 'sCategoryCSharpNew'
+        DataType = 'String'
+        Value = 'Borland.CSharp.New'
+      end
+      item
+        Name = 'sCategoryCSharpNewFiles'
+        DataType = 'String'
+        Value = 'Borland.CSharp.NewFiles'
+      end
+      item
+        Name = 'sCategoryMarkupNew'
+        DataType = 'String'
+        Value = 'Borland.Markup.New'
+      end
+      item
+        Name = 'sCategoryMarkupNewFiles'
+        DataType = 'String'
+        Value = 'Borland.Markup.NewFiles'
+      end
+      item
+        Name = 'sCategoryVBNew'
+        DataType = 'String'
+        Value = 'Borland.VB.New'
+      end
+      item
+        Name = 'sCategoryVBNewFiles'
+        DataType = 'String'
+        Value = 'Borland.VB.NewFiles'
+      end
+      item
+        Name = 'sCategoryNewUnitTest'
+        DataType = 'String'
+        Value = 'UnitTest.Test'
+      end
+      item
+        Name = 'cDefEdOptions'
+        DataType = 'String'
+        Value = 'Borland.EditOptions.'
+      end
+      item
+        Name = 'dcAlign'
+        DataType = 'String'
+        Value = 'Align'
+      end
+      item
+        Name = 'dcSize'
+        DataType = 'String'
+        Value = 'Size'
+      end
+      item
+        Name = 'dcScale'
+        DataType = 'String'
+        Value = 'Scale'
+      end
+      item
+        Name = 'dcTabOrder'
+        DataType = 'String'
+        Value = 'TabOrder'
+      end
+      item
+        Name = 'dcCreationOrder'
+        DataType = 'String'
+        Value = 'CreationOrder'
+      end
+      item
+        Name = 'dcLockControls'
+        DataType = 'String'
+        Value = 'LockControls'
+      end
+      item
+        Name = 'dcFlipChildrenAll'
+        DataType = 'String'
+        Value = 'FlipChildrenAll'
+      end
+      item
+        Name = 'dcFlipChildrenSelected'
+        DataType = 'String'
+        Value = 'FilpChildrenSelected'
+      end
+      item
+        Name = 'sBorlandEditorCodeExplorer'
+        DataType = 'String'
+        Value = 'BorlandEditorCodeExplorer'
+      end
+      item
+        Name = 'sBaseContainer'
+        DataType = 'String'
+        Value = 'BaseContainer'
+      end
+      item
+        Name = 'sFileContainer'
+        DataType = 'String'
+        Value = 'FileContainer'
+      end
+      item
+        Name = 'sProjectContainer'
+        DataType = 'String'
+        Value = 'ProjectContainer'
+      end
+      item
+        Name = 'sProjectGroupContainer'
+        DataType = 'String'
+        Value = 'ProjectGroupContainer'
+      end
+      item
+        Name = 'sCategoryContainer'
+        DataType = 'String'
+        Value = 'CategoryContainer'
+      end
+      item
+        Name = 'sDirectoryContainer'
+        DataType = 'String'
+        Value = 'DirectoryContainer'
+      end
+      item
+        Name = 'sReferencesContainer'
+        DataType = 'String'
+        Value = 'References'
+      end
+      item
+        Name = 'sContainsContainer'
+        DataType = 'String'
+        Value = 'Contains'
+      end
+      item
+        Name = 'sRequiresContainer'
+        DataType = 'String'
+        Value = 'Requires'
+      end
+      item
+        Name = 'sVirtualFoldContainer'
+        DataType = 'String'
+        Value = 'VirtualFold'
+      end
+      item
+        Name = 'sBuildConfigContainer'
+        DataType = 'String'
+        Value = 'BuildConfig'
+      end
+      item
+        Name = 'sOptionSetContainer'
+        DataType = 'String'
+        Value = 'OptionSet'
+      end
+      item
+        Name = 'sTargetPlatformContainer'
+        DataType = 'String'
+        Value = 'TargetPlatformContainer'
+      end
+      item
+        Name = 'vvfPrivate'
+        DataType = 'Integer'
+        Value = 0
+      end
+      item
+        Name = 'vvfProtected'
+        DataType = 'Integer'
+        Value = 1
+      end
+      item
+        Name = 'vvfPublic'
+        DataType = 'Integer'
+        Value = 2
+      end
+      item
+        Name = 'vvfPublished'
+        DataType = 'Integer'
+        Value = 3
+      end
+      item
+        Name = 'vvfVisMask'
+        DataType = 'Integer'
+        Value = 4
+      end
+      item
+        Name = 'vvfDeprecated'
+        DataType = 'Integer'
+        Value = 8
+      end
+      item
+        Name = 'sBaseConfigurationKey'
+        DataType = 'Integer'
+        Value = 'Base'
+      end
+      item
+        Name = 'svpNormal'
+        DataType = 'Integer'
+        Value = 0
+      end
+      item
+        Name = 'svpLow'
+        DataType = 'Integer'
+        Value = 255
+      end
+      item
+        Name = 'pmmpBuildSection'
+        DataType = 'Integer'
+        Value = 1000000
+      end
+      item
+        Name = 'pmmpOpenSection'
+        DataType = 'Integer'
+        Value = 2000000
+      end
+      item
+        Name = 'pmmpAddSection'
+        DataType = 'Integer'
+        Value = 3000000
+      end
+      item
+        Name = 'pmmpRemoveSection'
+        DataType = 'Integer'
+        Value = 4000000
+      end
+      item
+        Name = 'pmmpSaveSection'
+        DataType = 'Integer'
+        Value = 5000000
+      end
+      item
+        Name = 'pmmpRenameSection'
+        DataType = 'Integer'
+        Value = 6000000
+      end
+      item
+        Name = 'pmmpVersionControlSection'
+        DataType = 'Integer'
+        Value = 7000000
+      end
+      item
+        Name = 'pmmpUtilsSection'
+        DataType = 'Integer'
+        Value = 8000000
+      end
+      item
+        Name = 'pmmpReorderSection'
+        DataType = 'Integer'
+        Value = 9000000
+      end
+      item
+        Name = 'pmmpOptionsSection'
+        DataType = 'Integer'
+        Value = 10000000
+      end
+      item
+        Name = 'pmmpBuildConfig'
+        DataType = 'Integer'
+        Value = 11000000
+      end
+      item
+        Name = 'pmmpUserOffset'
+        DataType = 'Integer'
+        Value = 500000
       end>
     Enumerations = <
+      item
+        Name = 'TOTACompileMode'
+        Elements = <
+          item
+            Name = 'cmOTAMake'
+          end
+          item
+            Name = 'cmOTABuild'
+          end
+          item
+            Name = 'cmOTACheck'
+          end
+          item
+            Name = 'cmOTAMakeUnit'
+          end>
+      end
+      item
+        Name = 'TOTACompileResult'
+        Elements = <
+          item
+            Name = 'crOTAFailed'
+          end
+          item
+            Name = 'crOTASucceeded'
+          end
+          item
+            Name = 'crOTABackground'
+          end>
+      end
+      item
+        Name = 'TBindingType'
+        Elements = <
+          item
+            Name = 'btComplete'
+          end
+          item
+            Name = 'btPartial'
+          end>
+      end
+      item
+        Name = 'TKeyBindingResult'
+        Elements = <
+          item
+            Name = 'krUnhandled'
+          end
+          item
+            Name = 'krHandled'
+          end
+          item
+            Name = 'krNextProc'
+          end>
+      end
       item
         Name = 'TSearchDirection'
         Elements = <
@@ -2854,6 +4136,63 @@ object DataModuleScript: TDataModuleScript
           end
           item
             Name = 'sdBackward'
+          end>
+      end
+      item
+        Name = 'TOTASyntaxHighlighter'
+        Elements = <
+          item
+            Name = 'shNone'
+            IsUserDef = True
+          end
+          item
+            Name = 'shQuery'
+            UserDefValue = 1
+            IsUserDef = True
+          end
+          item
+            Name = 'shPascal'
+            UserDefValue = 2
+            IsUserDef = True
+          end
+          item
+            Name = 'shC'
+            UserDefValue = 3
+            IsUserDef = True
+          end
+          item
+            Name = 'shSQL'
+            UserDefValue = 4
+            IsUserDef = True
+          end
+          item
+            Name = 'shIDL'
+            UserDefValue = 5
+            IsUserDef = True
+          end
+          item
+            Name = 'shMax'
+            UserDefValue = 255
+            IsUserDef = True
+          end>
+      end
+      item
+        Name = 'TOTABlockType'
+        Elements = <
+          item
+            Name = 'btInclusive'
+          end
+          item
+            Name = 'btLine'
+          end
+          item
+            Name = 'btColumn'
+          end
+          item
+            Name = 'btNonInclusive'
+          end
+          item
+            Name = 'btUnknown'
           end>
       end
       item
@@ -2867,6 +4206,774 @@ object DataModuleScript: TDataModuleScript
           end
           item
             Name = 'smTemplates'
+          end>
+      end
+      item
+        Name = 'TOTASyncEditPointEventType'
+        Elements = <
+          item
+            Name = 'sepEnter'
+          end
+          item
+            Name = 'sepLeave'
+          end
+          item
+            Name = 'sepExit'
+          end>
+      end
+      item
+        Name = 'TOTAModificationType'
+        Elements = <
+          item
+            Name = 'mtModSinceLoad'
+          end
+          item
+            Name = 'mtModSinceSave'
+          end
+          item
+            Name = 'mtAnyMod'
+          end>
+      end
+      item
+        Name = 'TOTANavigateType'
+        Elements = <
+          item
+            Name = 'ntUp'
+          end
+          item
+            Name = 'ntDown'
+          end
+          item
+            Name = 'ntHome'
+          end
+          item
+            Name = 'ntEnd'
+          end>
+      end
+      item
+        Name = 'TOTAResHeaderValue'
+        Elements = <
+          item
+            Name = 'hvFlags'
+          end
+          item
+            Name = 'hvLanguage'
+          end
+          item
+            Name = 'hvDataVersion'
+          end
+          item
+            Name = 'hvVersion'
+          end
+          item
+            Name = 'hvCharacteristics'
+          end>
+      end
+      item
+        Name = 'TOTATransactionType'
+        Elements = <
+          item
+            Name = 'ttAdd'
+          end
+          item
+            Name = 'ttDelete'
+          end
+          item
+            Name = 'ttRename'
+          end>
+      end
+      item
+        Name = 'TOTATriggerResult'
+        Elements = <
+          item
+            Name = 'trStop'
+          end
+          item
+            Name = 'trContinue'
+          end
+          item
+            Name = 'trDefault'
+          end>
+      end
+      item
+        Name = 'TOTAAccessType'
+        Elements = <
+          item
+            Name = 'atRead'
+          end
+          item
+            Name = 'atWrite'
+          end
+          item
+            Name = 'atExecute'
+          end>
+      end
+      item
+        Name = 'TOTARunMode'
+        Elements = <
+          item
+            Name = 'ormRun'
+          end
+          item
+            Name = 'ormRunToEntry'
+          end
+          item
+            Name = 'ormRunToMain'
+          end
+          item
+            Name = 'ormRunToCursor'
+          end
+          item
+            Name = 'ormStmtStepInto'
+          end
+          item
+            Name = 'ormStmtStepOver'
+          end
+          item
+            Name = 'ormInstStepInto'
+          end
+          item
+            Name = 'ormInstStepOver'
+          end
+          item
+            Name = 'ormStmtStepToSource'
+          end
+          item
+            Name = 'ormRunToTerminate'
+          end
+          item
+            Name = 'ormRunUntilReturn'
+          end
+          item
+            Name = 'ormUnused'
+          end>
+      end
+      item
+        Name = 'TOTANotifyReason'
+        Elements = <
+          item
+            Name = 'nrOther'
+          end
+          item
+            Name = 'nrRunning'
+          end
+          item
+            Name = 'nrStopped'
+          end
+          item
+            Name = 'nrException'
+          end
+          item
+            Name = 'nrFault'
+          end>
+      end
+      item
+        Name = 'TOTAEvaluateResult'
+        Elements = <
+          item
+            Name = 'erOK'
+          end
+          item
+            Name = 'erError'
+          end
+          item
+            Name = 'erDeferred'
+          end
+          item
+            Name = 'erBusy'
+          end>
+      end
+      item
+        Name = 'TOTAThreadState'
+        Elements = <
+          item
+            Name = 'tsStopped'
+          end
+          item
+            Name = 'tsRunnable'
+          end
+          item
+            Name = 'tsBlocked'
+          end
+          item
+            Name = 'tsNone'
+          end
+          item
+            Name = 'tsOther'
+          end>
+      end
+      item
+        Name = 'TOTACallStackState'
+        Elements = <
+          item
+            Name = 'csAccessible'
+          end
+          item
+            Name = 'csInaccessible'
+          end
+          item
+            Name = 'csWait'
+          end>
+      end
+      item
+        Name = 'TOTAEvalSideEffects'
+        Elements = <
+          item
+            Name = 'eseNone'
+          end
+          item
+            Name = 'eseAll'
+          end
+          item
+            Name = 'esePropertiesOnly'
+          end>
+      end
+      item
+        Name = 'TOTAEntryPointSortType'
+        Elements = <
+          item
+            Name = 'epsByName'
+          end
+          item
+            Name = 'epsByAddress'
+          end>
+      end
+      item
+        Name = 'TOTAEntryPointSortDirection'
+        Elements = <
+          item
+            Name = 'epsAscending'
+          end
+          item
+            Name = 'epsDescending'
+          end>
+      end
+      item
+        Name = 'TOTAProcessState'
+        Elements = <
+          item
+            Name = 'psNothing'
+          end
+          item
+            Name = 'psRunning'
+          end
+          item
+            Name = 'psStopping'
+          end
+          item
+            Name = 'psStopped'
+          end
+          item
+            Name = 'psFault'
+          end
+          item
+            Name = 'psResFault'
+          end
+          item
+            Name = 'psTerminated'
+          end
+          item
+            Name = 'psException'
+          end
+          item
+            Name = 'psNoProcess'
+          end>
+      end
+      item
+        Name = 'TOTAProcessType'
+        Elements = <
+          item
+            Name = 'optWin32'
+          end
+          item
+            Name = 'optOSX32'
+          end
+          item
+            Name = 'optWin64'
+          end
+          item
+            Name = 'optiOS'
+          end
+          item
+            Name = 'optAndroid'
+          end>
+      end
+      item
+        Name = 'TLogItemType'
+        Elements = <
+          item
+            Name = 'litDefault'
+          end
+          item
+            Name = 'litODS'
+          end
+          item
+            Name = 'litWMSent'
+          end
+          item
+            Name = 'litWMPosted'
+          end
+          item
+            Name = 'litOleClientStart'
+          end
+          item
+            Name = 'litOleServerStart'
+          end
+          item
+            Name = 'litOleClientEnd'
+          end
+          item
+            Name = 'litSourceBreakpoint'
+          end
+          item
+            Name = 'litLogBreakEval'
+          end
+          item
+            Name = 'litBreakpointMessage'
+          end
+          item
+            Name = 'litProcStart'
+          end
+          item
+            Name = 'litProcExit'
+          end
+          item
+            Name = 'litThreadStart'
+          end
+          item
+            Name = 'litThreadExit'
+          end
+          item
+            Name = 'litModLoad'
+          end
+          item
+            Name = 'litModUnload'
+          end
+          item
+            Name = 'litExceptFirstTry'
+          end>
+      end
+      item
+        Name = 'TOTAVisualizerUnavailableReason'
+        Elements = <
+          item
+            Name = 'ovurProcessRunning'
+          end
+          item
+            Name = 'ovurOutOfScope'
+          end>
+      end
+      item
+        Name = 'TOTAFileNotification'
+        Elements = <
+          item
+            Name = 'ofnFileOpening'
+          end
+          item
+            Name = 'ofnFileOpened'
+          end
+          item
+            Name = 'ofnFileClosing'
+          end
+          item
+            Name = 'ofnDefaultDesktopLoad'
+          end
+          item
+            Name = 'ofnDefaultDesktopSave'
+          end
+          item
+            Name = 'ofnProjectDesktopLoad'
+          end
+          item
+            Name = 'ofnProjectDesktopSave'
+          end
+          item
+            Name = 'ofnPackageInstalled'
+          end
+          item
+            Name = 'ofnPackageUninstalled'
+          end
+          item
+            Name = 'ofnActiveProjectChanged'
+          end>
+      end
+      item
+        Name = 'TOTAPackageProducer'
+        Elements = <
+          item
+            Name = 'ppOTAUnknown'
+          end
+          item
+            Name = 'ppOTADelphi'
+          end
+          item
+            Name = 'ppOTABCB'
+          end>
+      end
+      item
+        Name = 'TOTAPackageConsumer'
+        Elements = <
+          item
+            Name = 'pcOTAUnknown'
+          end
+          item
+            Name = 'pcOTADelphi'
+          end
+          item
+            Name = 'pcOTABCB'
+          end
+          item
+            Name = 'pcOTABoth'
+          end>
+      end
+      item
+        Name = 'TOTAMessageKind'
+        Elements = <
+          item
+            Name = 'otamkHint'
+          end
+          item
+            Name = 'otamkWarn'
+          end
+          item
+            Name = 'otamkError'
+          end
+          item
+            Name = 'otamkFatal'
+          end
+          item
+            Name = 'otamkInfo'
+          end>
+      end
+      item
+        Name = 'TOTAInvokeType'
+        Elements = <
+          item
+            Name = 'itAuto'
+          end
+          item
+            Name = 'itManual'
+          end
+          item
+            Name = 'itTimer'
+          end>
+      end
+      item
+        Name = 'TOTACodeInsightType'
+        Elements = <
+          item
+            Name = 'citNone'
+          end
+          item
+            Name = 'citCodeInsight'
+          end
+          item
+            Name = 'citParameterCodeInsight'
+          end
+          item
+            Name = 'citBrowseCodeInsight'
+          end
+          item
+            Name = 'citHintCodeInsight'
+          end>
+      end
+      item
+        Name = 'TOTASortOrder'
+        Elements = <
+          item
+            Name = 'soAlpha'
+          end
+          item
+            Name = 'soScope'
+          end>
+      end
+      item
+        Name = 'TOTAViewerSymbolFlags'
+        Elements = <
+          item
+            Name = 'vsfUnknown'
+          end
+          item
+            Name = 'vsfConstant'
+          end
+          item
+            Name = 'vsfType'
+          end
+          item
+            Name = 'vsfVariable'
+          end
+          item
+            Name = 'vsfProcedure'
+          end
+          item
+            Name = 'vsfFunction'
+          end
+          item
+            Name = 'vsfUnit'
+          end
+          item
+            Name = 'vsfLabel'
+          end
+          item
+            Name = 'vsfProperty'
+          end
+          item
+            Name = 'vsfConstructor'
+          end
+          item
+            Name = 'vsfDestructor'
+          end
+          item
+            Name = 'vsfInterface'
+          end
+          item
+            Name = 'vsfEvent'
+          end
+          item
+            Name = 'vsfParameter'
+          end
+          item
+            Name = 'vsfLocalVar'
+          end
+          item
+            Name = 'vsfReservedWord'
+          end>
+      end
+      item
+        Name = 'TOTAProcDispatchFlags'
+        Elements = <
+          item
+            Name = 'pdfNone'
+          end
+          item
+            Name = 'pdfVirtual'
+          end
+          item
+            Name = 'pdfDynamic'
+          end>
+      end
+      item
+        Name = 'TOTACodeCompletionContext'
+        Elements = <
+          item
+            Name = 'ccNone'
+          end
+          item
+            Name = 'ccError'
+          end
+          item
+            Name = 'ccMember'
+          end
+          item
+            Name = 'ccArgument'
+          end
+          item
+            Name = 'ccDecl'
+          end
+          item
+            Name = 'ccTypeDecl'
+          end
+          item
+            Name = 'ccExpr'
+          end
+          item
+            Name = 'ccStatement'
+          end
+          item
+            Name = 'ccConstExpr'
+          end
+          item
+            Name = 'ccProcDecl'
+          end
+          item
+            Name = 'ccMemberDecl'
+          end
+          item
+            Name = 'ccNamespace'
+          end
+          item
+            Name = 'ccComment'
+          end
+          item
+            Name = 'ccStringLiteral'
+          end
+          item
+            Name = 'ccDocument'
+          end
+          item
+            Name = 'ccElement'
+          end
+          item
+            Name = 'ccAttribute'
+          end
+          item
+            Name = 'ccAny'
+          end>
+      end
+      item
+        Name = 'TOTAAffect'
+        Elements = <
+          item
+            Name = 'afNothing'
+          end
+          item
+            Name = 'afTop'
+          end
+          item
+            Name = 'afLeft'
+          end
+          item
+            Name = 'afBottom'
+          end
+          item
+            Name = 'afRight'
+          end
+          item
+            Name = 'afHCenter'
+          end
+          item
+            Name = 'afVCenter'
+          end
+          item
+            Name = 'afHSpace'
+          end
+          item
+            Name = 'afVSpace'
+          end
+          item
+            Name = 'afHWinCenter'
+          end
+          item
+            Name = 'afVWinCenter'
+          end
+          item
+            Name = 'afHSpaceInc'
+          end
+          item
+            Name = 'afHSpaceDec'
+          end
+          item
+            Name = 'afHSpaceDel'
+          end
+          item
+            Name = 'afVSpaceInc'
+          end
+          item
+            Name = 'afVSpaceDec'
+          end
+          item
+            Name = 'afVSpaceDel'
+          end
+          item
+            Name = 'afAlignToGrid'
+          end
+          item
+            Name = 'afSnapToGrid'
+          end
+          item
+            Name = 'afSendToBack'
+          end
+          item
+            Name = 'afBringToFront'
+          end>
+      end
+      item
+        Name = 'TOTASizeAffect'
+        Elements = <
+          item
+            Name = 'asNothing'
+          end
+          item
+            Name = 'asHGrow'
+          end
+          item
+            Name = 'asHShrink'
+          end
+          item
+            Name = 'asHAbsolute'
+          end
+          item
+            Name = 'asVGrow'
+          end
+          item
+            Name = 'asVShrink'
+          end
+          item
+            Name = 'asVAbsolute'
+          end
+          item
+            Name = 'asWidths'
+          end
+          item
+            Name = 'asHeights'
+          end
+          item
+            Name = 'asWidthHeight'
+          end
+          item
+            Name = 'asSizeToGrid'
+          end>
+      end
+      item
+        Name = 'TOTAAlphaFormat'
+        Elements = <
+          item
+            Name = 'otaafIgnored'
+          end
+          item
+            Name = 'otaafDefined'
+          end
+          item
+            Name = 'otaafPremultiplied'
+          end>
+      end
+      item
+        Name = 'TOTADiffFlag'
+        Elements = <
+          item
+            Name = 'dfOTABuffer'
+          end
+          item
+            Name = 'dfOTAFile'
+          end
+          item
+            Name = 'dfOTARevision'
+          end>
+      end
+      item
+        Name = 'TOTADifferenceType'
+        Elements = <
+          item
+            Name = 'dtOTAInternal'
+          end
+          item
+            Name = 'dtOTAExternal'
+          end
+          item
+            Name = 'dtOTADefault'
+          end>
+      end
+      item
+        Name = 'TOTABuildEventType'
+        Elements = <
+          item
+            Name = 'betOTAPreCompile'
+          end
+          item
+            Name = 'betOTAPostCompile'
+          end
+          item
+            Name = 'betOTAPreLink'
+          end>
+      end
+      item
+        Name = 'TOTABuildEventMode'
+        Elements = <
+          item
+            Name = 'beOTAAlways'
+          end
+          item
+            Name = 'beOTATargetOutOfDate'
           end>
       end>
     Forwards = <
@@ -3037,6 +5144,50 @@ object DataModuleScript: TDataModuleScript
       end
       item
         Name = 'TMoveCursorMasks'
+        DataType = 'Integer'
+      end
+      item
+        Name = 'TOTAModuleType'
+        DataType = 'Integer'
+      end
+      item
+        Name = 'TOTAAddress'
+        DataType = 'Integer'
+      end
+      item
+        Name = 'TOTASyntaxCode'
+        DataType = 'Integer'
+      end
+      item
+        Name = 'TOTALineClass'
+        DataType = 'Integer'
+      end
+      item
+        Name = 'OTAEdChar'
+        DataType = 'String'
+      end
+      item
+        Name = 'TOTALineSize'
+        DataType = 'Integer'
+      end
+      item
+        Name = 'TClassNavigateStyle'
+        DataType = 'Integer'
+      end
+      item
+        Name = 'TCodeCompleteStyle'
+        DataType = 'Integer'
+      end
+      item
+        Name = 'TOTARegionKind'
+        DataType = 'Integer'
+      end
+      item
+        Name = 'TKeyBindingFlags'
+        DataType = 'Integer'
+      end
+      item
+        Name = 'TOTAViewerVisibilityFlags'
         DataType = 'Integer'
       end>
     UnitName = 'Editor'

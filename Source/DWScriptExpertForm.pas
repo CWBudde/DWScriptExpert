@@ -2,6 +2,8 @@ unit DWScriptExpertForm;
 
 interface
 
+{-$DEFINE WebUpdate}
+
 {$IFNDEF WIN64}
 {-$DEFINE SupportJIT}
 {$ENDIF}
@@ -9,7 +11,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   DockForm, StdCtrls, ExtCtrls, ComCtrls, SyncObjs, Menus, StdActns, ActnList,
-  ToolWin, ImgList, Actions,
+  ToolWin, ImgList, Actions, ToolsAPI,
 
   dwsComp, dwsExprs, dwsSymbols, dwsErrors, dwsSuggestions, dwsVCLGUIFunctions,
   dwsStrings, dwsUnitSymbols, dwsFunctions, dwsTokenizer,
@@ -20,7 +22,7 @@ uses
   SynMacroRecorder, SynEditTypes,
 
   {$IFDEF WebUpdate}
-  WebUpdate.Classes.WebUpdate,
+//  WebUpdate.Classes.WebUpdate,
   {$ENDIF}
 
   VirtualTrees,
@@ -129,7 +131,11 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ActionAboutExecute(Sender: TObject);
     procedure ActionDocumentationExecute(Sender: TObject);
+    procedure ActionFileOpenAccept(Sender: TObject);
+    procedure ActionFileSaveAsAccept(Sender: TObject);
     procedure ActionFileSaveExecute(Sender: TObject);
+    procedure ActionScriptAbortExecute(Sender: TObject);
+    procedure ActionScriptAbortUpdate(Sender: TObject);
     procedure ActionScriptRunExecute(Sender: TObject);
     procedure MenuItemClearClick(Sender: TObject);
     procedure MenuSaveMessagesAsClick(Sender: TObject);
@@ -146,10 +152,6 @@ type
     procedure TreeCompilerFreeNode(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure TreeCompilerGetImageIndex(Sender: TBaseVirtualTree; Node: PVirtualNode; Kind: TVTImageKind; Column: TColumnIndex; var Ghosted: Boolean; var ImageIndex: Integer);
     procedure TreeCompilerGetText(Sender: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType; var CellText: string);
-    procedure ActionScriptAbortExecute(Sender: TObject);
-    procedure ActionScriptAbortUpdate(Sender: TObject);
-    procedure ActionFileSaveAsAccept(Sender: TObject);
-    procedure ActionFileOpenAccept(Sender: TObject);
   private
     FBackgroundCompilationThread: TBackgroundCompilationThread;
     FExecutionThread: TExecutionThread;
@@ -162,11 +164,13 @@ type
     FSearchHighlighter: TEditorFrameSynEditPlugin;
     FSuggestions: IDWSSuggestions;
     FScriptModule: TDataModuleScript;
+    FMessageGroupCompiler: IOTAMessageGroup;
+    FMessageGroupOutput: IOTAMessageGroup;
     procedure LoadSettings;
     procedure SaveSettings;
 
     {$IFDEF WebUpdate}
-    FWebUpdate: TWebUpdate;
+//    FWebUpdate: TWebUpdate;
     {$ENDIF}
   public
     constructor Create(AOwner: TComponent); override;
@@ -186,6 +190,9 @@ type
     procedure CompileScript;
     procedure RunScript(JIT: Boolean = False);
 
+    procedure OutputMessage(Text: string);
+    procedure CompilerMessages(Messages: TdwsMessageList);
+
     property CurrentFileName: TFileName read FCurrentFileName write SetCurrentFileName;
     property Modified: Boolean read FModified write SetModified;
   end;
@@ -196,7 +203,7 @@ implementation
 {$R *.dfm}
 
 uses
-  Deskutil, ToolsAPI, Registry, dwsUtils, dwsXPlatform, DWScriptExpertWizard,
+  DeskUtil, Registry, dwsUtils, dwsXPlatform, DWScriptExpertWizard,
   DWScriptExpertAbout;
 
 {$IFDEF WebUpdate}
@@ -351,26 +358,18 @@ begin
   Synchronize(procedure
   var
     Index: Integer;
-    Node: PVirtualNode;
-    NodeData: PCompilerMessage;
   begin
     if Success then
     begin
       if FProgramExecution.Result.ToString <> '' then
-        GDockForm.MemoOutput.Lines.Add(FProgramExecution.Result.ToString);
+        GDockForm.OutputMessage(FProgramExecution.Result.ToString);
       GDockForm.StatusBar.Panels[1].Text := 'Executed';
     end
     else
     begin
       if FProgramExecution.Msgs.HasErrors then
       begin
-        for Index := 0 to FProgramExecution.Msgs.Count - 1 do
-        begin
-          Node := GDockForm.TreeCompiler.AddChild(GDockForm.TreeCompiler.RootNode);
-          NodeData := GDockForm.TreeCompiler.GetNodeData(Node);
-          NodeData.Text := FProgramExecution.Msgs[Index].AsInfo;
-          NodeData.Message := FProgramExecution.Msgs[Index];
-        end;
+        GDockForm.CompilerMessages(FProgramExecution.Msgs);
         GDockForm.PageControl.ActivePage := GDockForm.TabSheetCompiler;
       end;
       GDockForm.StatusBar.Panels[1].Text := 'Error';
@@ -410,12 +409,17 @@ begin
   FOriginalCaption := Caption;
 
 {$IFDEF WebUpdate}
-  FWebUpdate := TWebUpdate.Create(CWebUpdateUrl);
+//  FWebUpdate := TWebUpdate.Create(CWebUpdateUrl);
 {$ENDIF}
   FSearchHighlighter := TEditorFrameSynEditPlugin.Create(SynEdit);
 
   DeskSection := Name;
   AutoSave := True;
+
+  FMessageGroupCompiler := (BorlandIDEServices as IOTAMessageServices).AddMessageGroup('DWScript Compiler');
+  FMessageGroupCompiler.AutoScroll := True;
+  FMessageGroupOutput := (BorlandIDEServices as IOTAMessageServices).AddMessageGroup('DWScript Output');
+  FMessageGroupOutput.AutoScroll := True;
 
   LoadSettings;
 
@@ -428,8 +432,11 @@ begin
   SaveSettings;
 
 {$IFDEF WebUpdate}
-  FWebUpdate.Free;
+//  FWebUpdate.Free;
 {$ENDIF}
+
+  (BorlandIDEServices as IOTAMessageServices).RemoveMessageGroup(FMessageGroupCompiler);
+  (BorlandIDEServices as IOTAMessageServices).RemoveMessageGroup(FMessageGroupOutput);
 
   // stop background compilation
   if Assigned(FBackgroundCompilationThread) then
@@ -450,7 +457,7 @@ begin
   FreeAndNil(FCriticalSection);
 
   // Instruct TDockableForm to save state
-  SaveStateNecessary := true;
+  SaveStateNecessary := True;
   inherited;
 end;
 
@@ -488,6 +495,9 @@ begin
 
       if ValueExists('RecentScript') then
         SynEdit.Lines.Text := ReadString('RecentScript');
+
+      if ValueExists('Visible') then
+        Visible := ReadBool('Visible');
     end;
     CloseKey;
   finally
@@ -508,6 +518,8 @@ begin
     // store caret position
     WriteInteger('CaretX', SynEdit.CaretX);
     WriteInteger('CaretY', SynEdit.CaretY);
+
+    WriteBool('Visible', Visible);
 
     // store options
     WriteBool('AltSetsColumnMode', eoAltSetsColumnMode in SynEdit.Options);
@@ -615,13 +627,7 @@ begin
   TreeCompiler.BeginUpdate;
   try
     TreeCompiler.Clear;
-    for Index := 0 to FCompiledProgram.Msgs.Count - 1 do
-    begin
-      Node := TreeCompiler.AddChild(TreeCompiler.RootNode);
-      NodeData := TreeCompiler.GetNodeData(Node);
-      NodeData.Text := FCompiledProgram.Msgs[Index].AsInfo;
-      NodeData.Message := FCompiledProgram.Msgs[Index];
-    end;
+    CompilerMessages(FCompiledProgram.Msgs);
   finally
     TreeCompiler.EndUpdate;
   end;
@@ -654,6 +660,25 @@ begin
   end;
 end;
 
+procedure TDWScriptExpertDockForm.OutputMessage(Text: string);
+var
+  StringList: TStringList;
+  Line: string;
+  LineRef: Pointer;
+begin
+  GDockForm.MemoOutput.Lines.Add(Text);
+  (BorlandIDEServices as IOTAMessageServices).ClearMessageGroup(FMessageGroupOutput);
+  StringList := TStringList.Create;
+  try
+    StringList.Text := Text;
+    for Line in StringList do
+      (BorlandIDEServices as IOTAMessageServices).AddToolMessage('', Line,
+        '', 0, 0, nil, LineRef, FMessageGroupOutput);
+  finally
+    StringList.Free;
+  end;
+end;
+
 procedure TDWScriptExpertDockForm.LoadScript(FileName: TFileName);
 begin
   SynEdit.Lines.LoadFromFile(FileName);
@@ -666,6 +691,37 @@ begin
   SynEdit.Lines.SaveToFile(Filename);
   CurrentFileName := Filename;
   Modified := False;
+end;
+
+procedure TDWScriptExpertDockForm.CompilerMessages(Messages: TdwsMessageList);
+var
+  Index: Integer;
+  Node: PVirtualNode;
+  NodeData: PCompilerMessage;
+  LineRef: Pointer;
+  SourceFileName: string;
+begin
+  (BorlandIDEServices as IOTAMessageServices).ClearMessageGroup(FMessageGroupCompiler);
+  for Index := 0 to Messages.Count - 1 do
+  begin
+    Node := GDockForm.TreeCompiler.AddChild(GDockForm.TreeCompiler.RootNode);
+    NodeData := GDockForm.TreeCompiler.GetNodeData(Node);
+    NodeData.Text := Messages[Index].AsInfo;
+    NodeData.Message := Messages[Index];
+
+    if Messages[Index] is TScriptMessage then
+    begin
+      SourceFileName := TScriptMessage(Messages[Index]).ScriptPos.SourceName;
+      if SourceFileName = SYS_MAINMODULE then
+        SourceFileName := FCurrentFileName;
+
+      (BorlandIDEServices as IOTAMessageServices).AddToolMessage(
+        SourceFileName, Messages[Index].AsInfo, 'DWScript',
+        TScriptMessage(Messages[Index]).ScriptPos.Line,
+        TScriptMessage(Messages[Index]).ScriptPos.Col,
+        nil, LineRef, FMessageGroupCompiler);
+    end;
+  end;
 end;
 
 procedure TDWScriptExpertDockForm.CompileScript;

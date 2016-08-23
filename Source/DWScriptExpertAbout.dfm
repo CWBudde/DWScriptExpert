@@ -434,9 +434,9 @@ object FormAbout: TFormAbout
   object LabelCopyright: TLabel
     Left = 8
     Top = 106
-    Width = 170
+    Width = 198
     Height = 13
-    Caption = 'Copyright 2015 Christian-W. Budde'
+    Caption = 'Copyright 2015-2016 Christian-W. Budde'
   end
   object LabelUses: TLabel
     Left = 8

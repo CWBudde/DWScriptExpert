@@ -3,7 +3,7 @@ unit DWScriptExpertWizard;
 interface
 
 uses
-  Menus, ToolsAPI, DWScriptExpertForm;
+  Menus, SysUtils, ToolsAPI, DWScriptExpertForm;
 
 type
   TDWScriptExpertWizard = class(TNotifierObject, IOTAWizard)
@@ -32,11 +32,16 @@ procedure Register;
 implementation
 
 uses
-  DeskUtil;
+  DeskUtil, Windows;
 
 var
   GSeparatorMenuItem: TMenuItem;
   GCustomMenuHandler: TCustomMenuHandler;
+{$IF CompilerVersion >= 17.0}
+  GSplashScreenBitmap: HBITMAP;
+  GAboutPluginIndex: Integer;
+{$ENDIF}
+
 
 { TDWScriptExpertWizard }
 
@@ -155,8 +160,10 @@ begin
   if GDockForm = nil then
   begin
     GDockForm := TDWScriptExpertDockForm.Create(nil);
+(*
     GDockForm.Visible := True;
     GViewScriptMenuItem.Checked := GDockForm.Visible;
+*)
 
     // Register to save position with the IDE
     RegisterDockableForm(TDWScriptExpertDockForm, GDockForm,
@@ -170,8 +177,7 @@ begin
   begin
     // Cleanup dockable form instance
     UnRegisterDockableForm(GDockForm);
-    GDockForm.Free;
-    GDockForm := nil;
+    FreeAndNil(GDockForm);
   end;
 end;
 
@@ -183,21 +189,32 @@ begin
   begin
     Form.ForceShow;
     FocusWindow(Form);
-//    Form.Focus;
   end
   else
-  begin
     Form.Show;
-//    Form.Focus;
-  end;
 end;
 
 var
   Wizard: Integer = 0;
 
 function InitializeWizard(BorlandIDEServices: IBorlandIDEServices): IOTAWizard;
+var
+  Svcs : IOTAServices;
 begin
+(*
+  Svcs := BorlandIDEServices As IOTAServices;
+  ToolsAPI.BorlandIDEServices := BorlandIDEServices;
+  Application.Handle := Svcs.GetParentHandle;
+*)
+
+{$IF CompilerVersion >= 17.0}
+  GAboutPluginIndex := (BorlandIDEServices As IOTAAboutBoxServices).AddPluginInfo(
+    'DWScript Expert', 'Scripting for the Delphi IDE', GSplashScreenBitmap);
+{$ENDIF}
+
   Result := TDWScriptExpertWizard.Create as IOTAWizard;
+
+//  Application.Handle := (BorlandIDEServices As IOTAServices).GetParentHandle;
 
   AddIDEMenu;
 
@@ -228,11 +245,17 @@ initialization
   GViewScriptMenuItem := nil;
   GSeparatorMenuItem := nil;
   GCustomMenuHandler := nil;
+  GSplashScreenBitmap := LoadBitmap(hInstance, 'SplashScreenBitmap');
+  (SplashScreenServices As IOTASplashScreenServices).AddPluginBitmap(
+    'DWScript Expert', GSplashScreenBitmap);
+
 
 finalization
   RemoveIDEMenu;
   DestroyDockForm;
   if Wizard > 0 then
     (BorlandIDEServices as IOTAWizardServices).RemoveWizard(Wizard);
+  if GAboutPluginIndex > 0 then
+    (BorlandIDEServices as IOTAAboutBoxServices).RemovePluginInfo(GAboutPluginIndex);
 
 end.

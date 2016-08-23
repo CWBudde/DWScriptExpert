@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  Vcl.StdCtrls, Vcl.Imaging.pngimage, Vcl.ExtCtrls;
+  StdCtrls, Vcl.Imaging.pngimage, ExtCtrls;
 
 type
   TFormAbout = class(TForm)
@@ -13,10 +13,6 @@ type
     LabelTitle: TLabel;
     LabelCopyright: TLabel;
     LabelUses: TLabel;
-  private
-    { Private-Deklarationen }
-  public
-    { Public-Deklarationen }
   end;
 
 implementation

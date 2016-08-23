@@ -794,7 +794,7 @@ procedure TDataModuleScript.dwsUnitInternalFunctionsWriteLnEval(
   info: TProgramInfo);
 begin
   Assert(Owner is TDWScriptExpertDockForm);
-  TDWScriptExpertDockForm(Owner).MemoOutput.Lines.Add(Info.ParamAsString[0])
+  TDWScriptExpertDockForm(Owner).OutputMessage(Info.ParamAsString[0]);
 end;
 
 function TDataModuleScript.GetEditView: IOTAEditView;

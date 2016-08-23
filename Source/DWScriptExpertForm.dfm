@@ -35,6 +35,7 @@ object DWScriptExpertDockForm: TDWScriptExpertDockForm
     Font.Name = 'Courier New'
     Font.Style = []
     TabOrder = 0
+    BorderStyle = bsNone
     Gutter.Font.Charset = DEFAULT_CHARSET
     Gutter.Font.Color = clWindowText
     Gutter.Font.Height = -11
@@ -73,6 +74,7 @@ object DWScriptExpertDockForm: TDWScriptExpertDockForm
     ActivePage = TabSheetOutput
     Align = alBottom
     TabOrder = 2
+    Visible = False
     object TabSheetCompiler: TTabSheet
       Caption = '&Compiler'
       object TreeCompiler: TVirtualStringTree
