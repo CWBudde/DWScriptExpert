@@ -1,7 +1,7 @@
 package DWScriptExpert;
 
-{$R '..\..\Resource\DWScriptExpert.res'}
 {$R *.res}
+{$R '..\..\Source\DWScriptExpert.res'}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
 {$ALIGN 8}
 {$ASSERTIONS ON}
@@ -45,6 +45,7 @@ requires
 contains
   DWScriptExpertForm in '..\..\Source\DWScriptExpertForm.pas' {DWScriptExpertDockForm},
   DWScriptExpertModule in '..\..\Source\DWScriptExpertModule.pas' {DataModuleScript: TDataModule},
-  DWScriptExpertAbout in '..\..\Source\DWScriptExpertAbout.pas' {FormAbout};
+  DWScriptExpertAbout in '..\..\Source\DWScriptExpertAbout.pas' {FormAbout},
+  DWScriptExpertWizard in '..\..\Source\DWScriptExpertWizard.pas';
 
 end.

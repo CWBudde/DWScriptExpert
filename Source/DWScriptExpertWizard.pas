@@ -40,7 +40,7 @@ var
 {$IF CompilerVersion >= 17.0}
   GSplashScreenBitmap: HBITMAP;
   GAboutPluginIndex: Integer;
-{$ENDIF}
+{$IFEND}
 
 
 { TDWScriptExpertWizard }
@@ -210,7 +210,7 @@ begin
 {$IF CompilerVersion >= 17.0}
   GAboutPluginIndex := (BorlandIDEServices As IOTAAboutBoxServices).AddPluginInfo(
     'DWScript Expert', 'Scripting for the Delphi IDE', GSplashScreenBitmap);
-{$ENDIF}
+{$IFEND}
 
   Result := TDWScriptExpertWizard.Create as IOTAWizard;
 
