@@ -2,8 +2,6 @@ unit DWScriptExpertForm;
 
 interface
 
-{-$DEFINE WebUpdate}
-
 {$IFNDEF WIN64}
 {-$DEFINE SupportJIT}
 {$ENDIF}
@@ -22,7 +20,7 @@ uses
   SynMacroRecorder, SynEditTypes,
 
   {$IFDEF WebUpdate}
-//  WebUpdate.Classes.WebUpdate,
+  WebUpdate.Classes.WebUpdate,
   {$ENDIF}
 
   VirtualTrees,
@@ -170,7 +168,7 @@ type
     procedure SaveSettings;
 
     {$IFDEF WebUpdate}
-//    FWebUpdate: TWebUpdate;
+    FWebUpdate: TWebUpdate;
     {$ENDIF}
   public
     constructor Create(AOwner: TComponent); override;
@@ -409,7 +407,7 @@ begin
   FOriginalCaption := Caption;
 
 {$IFDEF WebUpdate}
-//  FWebUpdate := TWebUpdate.Create(CWebUpdateUrl);
+  FWebUpdate := TWebUpdate.Create(CWebUpdateUrl);
 {$ENDIF}
   FSearchHighlighter := TEditorFrameSynEditPlugin.Create(SynEdit);
 
@@ -432,7 +430,7 @@ begin
   SaveSettings;
 
 {$IFDEF WebUpdate}
-//  FWebUpdate.Free;
+  FWebUpdate.Free;
 {$ENDIF}
 
   (BorlandIDEServices as IOTAMessageServices).RemoveMessageGroup(FMessageGroupCompiler);

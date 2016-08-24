@@ -1,5 +1,6 @@
 package DWScriptExpert;
 
+{$R '..\..\Resource\DWScriptExpert.res'}
 {$R *.res}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
 {$ALIGN 8}

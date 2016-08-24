@@ -1,7 +1,7 @@
 package DWScriptExpert;
 
+{$R '..\..\Resource\DWScriptExpert.res'}
 {$R *.res}
-{$R DWScriptExpert.rc DWScriptExpert.res}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
 {$ALIGN 8}
 {$ASSERTIONS ON}
@@ -31,16 +31,16 @@ package DWScriptExpert;
 {$IMPLICITBUILD ON}
 
 requires
-  designide,
-  rtl,
+  DesignIDE,
+  RTL,
+  VclImg,
   IndyCore,
   IndySystem,
   IndyProtocols,
+  dwsLibRuntime,
   VirtualTreesR,
   SynEdit_R,
-  dwsLibRuntime,
-  WebUpdateR,
-  vclimg;
+  WebUpdateR;
 
 contains
   DWScriptExpertForm in '..\..\Source\DWScriptExpertForm.pas' {DWScriptExpertDockForm},
