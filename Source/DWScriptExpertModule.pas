@@ -92,6 +92,8 @@ type
     procedure dwsUnitDelphiASTClassesTValuedSyntaxNodeMethodsSetValueEval(Info: TProgramInfo; ExtObject: TObject);
     procedure dwsUnitDelphiASTClassesTCommentNodeMethodsGetTextEval(Info: TProgramInfo; ExtObject: TObject);
     procedure dwsUnitDelphiASTClassesTCommentNodeMethodsSetTextEval(Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorMethodsGetFileNameEval(
+      Info: TProgramInfo; ExtObject: TObject);
   private
     FUnitRTTI: TdwsUnit;
     {$IFDEF UseCryptoModule}
@@ -403,6 +405,18 @@ begin
   // create script-side class "containing" the interface
   Info.ResultAsVariant := Info.Vars[Name].GetConstructor('Create',
     Container).Call.Value;
+end;
+
+procedure TDataModuleScript.dwsUnitEditorClassesIOTAEditorMethodsGetFileNameEval(
+  Info: TProgramInfo; ExtObject: TObject);
+var
+  Editor: IOTAEditor;
+begin
+  // get editor
+  Editor := (BorlandIDEServices as IOTAEditor);
+
+  // get file name
+  Info.ResultAsString := Editor.GetFileName;
 end;
 
 procedure TDataModuleScript.dwsUnitEditorClassesIOTAEditorServices60MethodsGetEditOptionsEval(

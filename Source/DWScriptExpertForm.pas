@@ -9,10 +9,10 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   DockForm, StdCtrls, ExtCtrls, ComCtrls, SyncObjs, Menus, StdActns, ActnList,
-  ToolWin, ImgList, ToolsAPI,
+  ToolWin, ImgList, ToolsAPI, Actions,
 
   dwsComp, dwsExprs, dwsSymbols, dwsErrors, dwsSuggestions, dwsVCLGUIFunctions,
-  dwsStrings, dwsUnitSymbols, dwsFunctions, dwsTokenizer,
+  dwsStrings, dwsUnitSymbols, dwsFunctions, dwsTokenizer, dwsScriptSource,
   {$IFDEF SupportJIT} dwsJIT, dwsJITx86, {$ENDIF}
 
   SynEdit, SynEditHighlighter, SynHighlighterDWS, SynCompletionProposal,
@@ -106,6 +106,7 @@ type
     SynParameters: TSynCompletionProposal;
     TabSheetCompiler: TTabSheet;
     TabSheetOutput: TTabSheet;
+    TreeCompiler: TVirtualStringTree;
     ToolBar: TToolBar;
     ToolButton1: TToolButton;
     ToolButtonAbout: TToolButton;
@@ -124,7 +125,6 @@ type
     ToolButtonSeparator3: TToolButton;
     ToolButtonSeparator4: TToolButton;
     ToolButtonUndo: TToolButton;
-    TreeCompiler: TVirtualStringTree;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ActionAboutExecute(Sender: TObject);
@@ -201,8 +201,8 @@ implementation
 {$R *.dfm}
 
 uses
-  DeskUtil, Registry, dwsUtils, dwsXPlatform, DWScriptExpertWizard,
-  DWScriptExpertAbout;
+  DeskUtil, Registry, dwsUtils, dwsXPlatform, dwsSymbolDictionary,
+  DWScriptExpertWizard, DWScriptExpertAbout;
 
 {$IFDEF WebUpdate}
 const
@@ -433,8 +433,11 @@ begin
   FWebUpdate.Free;
 {$ENDIF}
 
-  (BorlandIDEServices as IOTAMessageServices).RemoveMessageGroup(FMessageGroupCompiler);
-  (BorlandIDEServices as IOTAMessageServices).RemoveMessageGroup(FMessageGroupOutput);
+  try
+    (BorlandIDEServices as IOTAMessageServices).RemoveMessageGroup(FMessageGroupCompiler);
+    (BorlandIDEServices as IOTAMessageServices).RemoveMessageGroup(FMessageGroupOutput);
+  except
+  end;
 
   // stop background compilation
   if Assigned(FBackgroundCompilationThread) then
@@ -905,6 +908,7 @@ procedure TDWScriptExpertDockForm.SynParametersExecute(Kind: SynCompletionType;
     FuncSymbol: TFuncSymbol;
 
     SymbolDictionary: TdwsSymbolDictionary;
+    SymbolPos: TSymbolPositionList;
     Symbol, TestSymbol: TSymbol;
   begin
     // make sure the string list is present
@@ -937,10 +941,9 @@ procedure TDWScriptExpertDockForm.SynParametersExecute(Kind: SynCompletionType;
 
       if TFuncSymbol(Symbol).IsOverloaded then
       begin
-        for ItemIndex := 0 to SymbolDictionary.Count - 1 do
+        for SymbolPos in SymbolDictionary do
         begin
-          TestSymbol := SymbolDictionary.Items[ItemIndex].Symbol;
-
+          TestSymbol := SymbolPos.Symbol;
           if (TestSymbol.ClassType = Symbol.ClassType) and
             SameText(TFuncSymbol(TestSymbol).Name, TFuncSymbol(Symbol).Name) and
             (TestSymbol <> Symbol) then

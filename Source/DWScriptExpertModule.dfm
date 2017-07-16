@@ -763,6 +763,7 @@ object DataModuleScript: TDataModuleScript
           item
             Name = 'GetFileName'
             ResultType = 'string'
+            OnEval = dwsUnitEditorClassesIOTAEditorMethodsGetFileNameEval
             Kind = mkFunction
           end
           item
