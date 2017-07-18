@@ -769,15 +769,18 @@ object DataModuleScript: TDataModuleScript
           item
             Name = 'GetModified'
             ResultType = 'Boolean'
+            OnEval = dwsUnitEditorClassesIOTAEditorMethodsGetModifiedEval
             Kind = mkFunction
           end
           item
             Name = 'MarkModified'
             ResultType = 'Boolean'
+            OnEval = dwsUnitEditorClassesIOTAEditorMethodsMarkModifiedEval
             Kind = mkFunction
           end
           item
-            Name = 'procedure Show;'
+            Name = 'Show'
+            OnEval = dwsUnitEditorClassesIOTAEditorMethodsShowEval
             Kind = mkProcedure
           end>
         Properties = <
@@ -1263,6 +1266,7 @@ object DataModuleScript: TDataModuleScript
                 Name = 'Magnitude'
                 DataType = 'Integer'
               end>
+            OnEval = dwsUnitEditorClassesIOTAEditPositionMethodsAlignEval
             Kind = mkProcedure
           end
           item
@@ -1273,6 +1277,7 @@ object DataModuleScript: TDataModuleScript
                 DataType = 'Integer'
               end>
             ResultType = 'Boolean'
+            OnEval = dwsUnitEditorClassesIOTAEditPositionMethodsBackspaceDeleteEval
             Kind = mkFunction
           end
           item

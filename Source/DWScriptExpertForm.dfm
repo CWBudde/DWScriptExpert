@@ -41,13 +41,15 @@ object DWScriptExpertDockForm: TDWScriptExpertDockForm
     Gutter.Font.Height = -11
     Gutter.Font.Name = 'Courier New'
     Gutter.Font.Style = []
+    Gutter.ShowLineNumbers = True
+    Gutter.ShowModification = True
     Highlighter = SynDWSSyn
     Options = [eoAutoIndent, eoDragDropEditing, eoEnhanceEndKey, eoGroupUndo, eoHalfPageScroll, eoScrollPastEof, eoScrollPastEol, eoShowScrollHint, eoSmartTabDelete, eoSmartTabs, eoTabIndent, eoTabsToSpaces]
     SearchEngine = SynEditSearch
     TabWidth = 2
     WantTabs = True
     OnChange = SynEditChange
-    OnGutterPaint = SynEditGutterPaint
+    OnGutterGetText = SynEditGutterGetText
     OnSpecialLineColors = SynEditSpecialLineColors
     OnStatusChange = SynEditStatusChange
     FontSmoothing = fsmNone
@@ -71,7 +73,7 @@ object DWScriptExpertDockForm: TDWScriptExpertDockForm
     Top = 356
     Width = 695
     Height = 99
-    ActivePage = TabSheetOutput
+    ActivePage = TabSheetCompiler
     Align = alBottom
     TabOrder = 2
     Visible = False
@@ -341,7 +343,8 @@ object DWScriptExpertDockForm: TDWScriptExpertDockForm
     end
     object ActionScriptRun: TAction
       Category = 'Script'
-      Caption = 'Run Script'
+      Caption = '&Run Script'
+      Hint = 'Run|Runs the script'
       ImageIndex = 36
       ShortCut = 120
       OnExecute = ActionScriptRunExecute
@@ -391,6 +394,7 @@ object DWScriptExpertDockForm: TDWScriptExpertDockForm
     object ActionScriptAbort: TAction
       Category = 'Script'
       Caption = '&Abort'
+      Hint = 'Abort|Aborts running the script'
       ImageIndex = 10
       OnExecute = ActionScriptAbortExecute
       OnUpdate = ActionScriptAbortUpdate

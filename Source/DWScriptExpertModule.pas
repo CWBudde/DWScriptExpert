@@ -94,6 +94,16 @@ type
     procedure dwsUnitDelphiASTClassesTCommentNodeMethodsSetTextEval(Info: TProgramInfo; ExtObject: TObject);
     procedure dwsUnitEditorClassesIOTAEditorMethodsGetFileNameEval(
       Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorMethodsShowEval(Info: TProgramInfo;
+      ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorMethodsGetModifiedEval(
+      Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditorMethodsMarkModifiedEval(
+      Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditPositionMethodsAlignEval(
+      Info: TProgramInfo; ExtObject: TObject);
+    procedure dwsUnitEditorClassesIOTAEditPositionMethodsBackspaceDeleteEval(
+      Info: TProgramInfo; ExtObject: TObject);
   private
     FUnitRTTI: TdwsUnit;
     {$IFDEF UseCryptoModule}
@@ -419,6 +429,42 @@ begin
   Info.ResultAsString := Editor.GetFileName;
 end;
 
+procedure TDataModuleScript.dwsUnitEditorClassesIOTAEditorMethodsGetModifiedEval(
+  Info: TProgramInfo; ExtObject: TObject);
+var
+  Editor: IOTAEditor;
+begin
+  // get editor
+  Editor := (BorlandIDEServices as IOTAEditor);
+
+  // get file name
+  Info.ResultAsBoolean := Editor.GetModified;
+end;
+
+procedure TDataModuleScript.dwsUnitEditorClassesIOTAEditorMethodsMarkModifiedEval(
+  Info: TProgramInfo; ExtObject: TObject);
+var
+  Editor: IOTAEditor;
+begin
+  // get editor
+  Editor := (BorlandIDEServices as IOTAEditor);
+
+  // get file name
+  Info.ResultAsBoolean := Editor.MarkModified;
+end;
+
+procedure TDataModuleScript.dwsUnitEditorClassesIOTAEditorMethodsShowEval(
+  Info: TProgramInfo; ExtObject: TObject);
+var
+  Editor: IOTAEditor;
+begin
+  // get editor
+  Editor := (BorlandIDEServices as IOTAEditor);
+
+  // get file name
+  Editor.Show;
+end;
+
 procedure TDataModuleScript.dwsUnitEditorClassesIOTAEditorServices60MethodsGetEditOptionsEval(
   Info: TProgramInfo; ExtObject: TObject);
 var
@@ -557,6 +603,28 @@ var
 begin
   EditorServices := BorlandIDEServices as IOTAEditorServices;
   Info.ResultAsString := EditorServices.GetEditOptionsIDString(Info.ParamAsString[0]);
+end;
+
+procedure TDataModuleScript.dwsUnitEditorClassesIOTAEditPositionMethodsAlignEval(
+  Info: TProgramInfo; ExtObject: TObject);
+var
+  EditPosition: IOTAEditPosition;
+begin
+  // TODO: get editor position
+  EditPosition := (BorlandIDEServices as IOTAEditPosition);
+
+  EditPosition.Align(Info.ParamAsInteger[0]);
+end;
+
+procedure TDataModuleScript.dwsUnitEditorClassesIOTAEditPositionMethodsBackspaceDeleteEval(
+  Info: TProgramInfo; ExtObject: TObject);
+var
+  EditPosition: IOTAEditPosition;
+begin
+  // TODO: get editor position
+  EditPosition := (BorlandIDEServices as IOTAEditPosition);
+
+  Info.ResultAsBoolean := EditPosition.BackspaceDelete(Info.ParamAsInteger[0]);
 end;
 
 procedure TDataModuleScript.dwsUnitEditorFunctionsCenterCursorEval(

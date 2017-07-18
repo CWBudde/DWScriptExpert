@@ -142,14 +142,17 @@ type
     procedure SynCodeSuggestionsPaintItem(Sender: TObject; Index: Integer; TargetCanvas: TCanvas; ItemRect: TRect; var CustomDraw: Boolean);
     procedure SynCodeSuggestionsShow(Sender: TObject);
     procedure SynEditChange(Sender: TObject);
-    procedure SynEditGutterPaint(Sender: TObject; aLine, X, Y: Integer);
     procedure SynEditSpecialLineColors(Sender: TObject; Line: Integer; var Special: Boolean; var FG, BG: TColor);
     procedure SynEditStatusChange(Sender: TObject; Changes: TSynStatusChanges);
     procedure SynParametersExecute(Kind: SynCompletionType; Sender: TObject; var CurrentInput: string; var x, y: Integer; var CanExecute: Boolean);
     procedure TreeCompilerDblClick(Sender: TObject);
     procedure TreeCompilerFreeNode(Sender: TBaseVirtualTree; Node: PVirtualNode);
-    procedure TreeCompilerGetImageIndex(Sender: TBaseVirtualTree; Node: PVirtualNode; Kind: TVTImageKind; Column: TColumnIndex; var Ghosted: Boolean; var ImageIndex: Integer);
     procedure TreeCompilerGetText(Sender: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType; var CellText: string);
+    procedure TreeCompilerGetImageIndex(Sender: TBaseVirtualTree;
+      Node: PVirtualNode; Kind: TVTImageKind; Column: TColumnIndex;
+      var Ghosted: Boolean; var ImageIndex: TImageIndex);
+    procedure SynEditGutterGetText(Sender: TObject; aLine: Integer;
+      var aText: string);
   private
     FBackgroundCompilationThread: TBackgroundCompilationThread;
     FExecutionThread: TExecutionThread;
@@ -1144,44 +1147,17 @@ begin
   Modified := True;
 end;
 
-procedure TDWScriptExpertDockForm.SynEditGutterPaint(Sender: TObject; ALine, X, Y: Integer);
-var
-  StrLineNumber: string;
-  LineNumberRect: TRect;
-  GutterWidth, Offset: Integer;
-  OldFont: TFont;
+procedure TDWScriptExpertDockForm.SynEditGutterGetText(Sender: TObject;
+  aLine: Integer; var aText: string);
 begin
-  with TSynEdit(Sender), Canvas do
-  begin
-    Brush.Style := bsClear;
-    GutterWidth := Gutter.Width - 5;
-    if (ALine = 1) or (ALine = CaretY) or ((ALine mod 10) = 0) then
-    begin
-      StrLineNumber := IntToStr(ALine);
-      LineNumberRect := Rect(x, y, GutterWidth, y + LineHeight);
-      OldFont := TFont.Create;
-      try
-        OldFont.Assign(Canvas.Font);
-        Canvas.Font := Gutter.Font;
-        Canvas.TextRect(LineNumberRect, StrLineNumber, [tfVerticalCenter,
-          tfSingleLine, tfRight]);
-        Canvas.Font := OldFont;
-      finally
-        OldFont.Free;
-      end;
-    end
+  if aLine = TSynEdit(Sender).CaretY then
+    Exit;
+
+  if aLine mod 10 <> 0 then
+    if aLine mod 5 <> 0 then
+      aText := '·'
     else
-    begin
-      Canvas.Pen.Color := Gutter.Font.Color;
-      if (ALine mod 5) = 0 then
-        Offset := 5
-      else
-        Offset := 2;
-      Inc(y, LineHeight div 2);
-      Canvas.MoveTo(GutterWidth - Offset, y);
-      Canvas.LineTo(GutterWidth, y);
-    end;
-  end;
+      aText := '-';
 end;
 
 procedure TDWScriptExpertDockForm.SynEditSpecialLineColors(Sender: TObject; Line: Integer;
@@ -1250,9 +1226,9 @@ begin
   Finalize(NodeData^);
 end;
 
-procedure TDWScriptExpertDockForm.TreeCompilerGetImageIndex(Sender: TBaseVirtualTree;
-  Node: PVirtualNode; Kind: TVTImageKind; Column: TColumnIndex;
-  var Ghosted: Boolean; var ImageIndex: Integer);
+procedure TDWScriptExpertDockForm.TreeCompilerGetImageIndex(
+  Sender: TBaseVirtualTree; Node: PVirtualNode; Kind: TVTImageKind;
+  Column: TColumnIndex; var Ghosted: Boolean; var ImageIndex: TImageIndex);
 var
   NodeData: PCompilerMessage;
 begin
