@@ -10,7 +10,7 @@ It's also possible to write scripts to perform some calculations, which might be
 
 This expert is under the Mozilla Public License Version 1.1 and far from being complete. The internal API will be expanded one by one, so either help out, or be patient if a feature you'd like to use is missing.
 
-What works so far (beyond everything that inhertis from DWScript) are simple things like:
+What works so far (beyond everything that inherits from DWScript) are simple things like:
 * SetCursorPosition(Line, Column: Integer)
 * LocateText(Pattern: String)
 * ReplaceAll(Pattern, ReplaceText: String)
